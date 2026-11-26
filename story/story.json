@@ -1,0 +1,1736 @@
+{
+  "schema": "phone-investigation-story/1",
+  "meta": {
+    "title": "The Last Message",
+    "titleAr": "آخر رسالة",
+    "player": "tarek",
+    "gameDate": "2026-11-28",
+    "gameWeekday": "Saturday",
+    "era": "November 2026, modern Cairo",
+    "language": {
+      "systemChrome": "en",
+      "inWorldContent": "ar-EG",
+      "rules": "All in-world content (chats, mails, notes, sites, captions, files, audio transcripts, notifications) is Egyptian Arabic in Arabic script. NO Franco-Arabic anywhere. iOS system chrome stays in English (realistic). Passcode is digits. URLs and email addresses in Latin characters."
+    },
+    "setting": "Cairo, Egypt. Salma works at a Shifa pharmacy branch in Dokki. Family home in Faisal. Nour's flat in Mohandessin.",
+    "fictional": true,
+    "fictionalNotice": "لعبة خيالية. كل الأشخاص والأسماء والشركات والمواقع والأرقام في هذه اللعبة من وحي الخيال، وأي تشابه مع أشخاص أو جهات حقيقية هو محض صدفة.",
+    "estimatedMinutes": "40-60",
+    "bible": "story-bible.md",
+    "placementMap": "placement-map.md",
+    "saveKey": "the-last-message-save-v1",
+    "directorOnlyNote": "The truth section and every character 'secret' field are DIRECTOR-ONLY. The engine must never render them. NOTHING player-facing may declare Salma's fate (safe, harmed, alive, dead, run away) before the endings. Characters may worry, guess, or be wrong, but no file, chat, mail, site, caption, note, hint or narration may state what happened to her as fact. Ending scenes are the only exception.",
+    "neutralityRule": "Salma's fate is never stated as fact anywhere in player-facing content. Mostafa may BELIEVE she left him; Hani may CLAIM she quit; Nour may say she is scared — all are opinions, never confirmed facts until an ending.",
+    "discoveryRule": "Fake Safari sites are discovered ONLY via links inside chats or mails, NEVER as bookmarks. The fake search engine returns results from inside the world only.",
+    "mediaStatus": "2026-11-26 (retry update): 16 of 18 photos exist. STILL MISSING (refused twice, do not depend on them): profile_hani.jpg and profile_ziad.jpg. Ziad has NO photo at all: text-only contact, no avatar photo, no scene photo. Hani has no profile portrait, but hani_office.jpg EXISTS and IS his face: use hani_office.jpg as his avatar/contact image, never profile_hani.jpg. Restored by retry: profile_mostafa.jpg, hani_office.jpg, salma_mostafa_park.jpg — these may be referenced normally. Rule: if a listed file is absent the shell must hide that Photos entry entirely (never a broken tile) and render the contact with text/initials avatar."
+  },
+  "truth": {
+    "directorOnly": true,
+    "neverDisplay": true,
+    "summary": "Salma Hassan, 25, pharmacist at a Shifa branch in Dokki, discovered expired and fake medicine being sold at her branch. From about 18 Nov she quietly collected evidence: photos of stock with batch numbers, a voice memo, a written note. She planned to report it to the Egyptian Drug Authority (health inspectorate) with journalist Ziad Mansour, whom she contacted as a source — NOT a lover. Branch manager Hani Fathy found out on Thursday 26 Nov, threatened her, and she fled to coworker Nour Hamed's flat in Mohandessin, where she is hiding, safe but scared. Her phone was left behind in her locker at the pharmacy; Mostafa found it on Friday 27 Nov and gave it to her brother Tarek on Friday night. Game day is Saturday 28 Nov 2026: Tarek unlocks the phone.",
+    "timeline": [
+      {
+        "date": "2026-11-18",
+        "event": "Salma notices expired boxes in the stockroom while doing inventory; batch numbers do not match the supplier invoices. She tells no one except a hint to Nour."
+      },
+      {
+        "date": "2026-11-20",
+        "event": "Salma contacts journalist Ziad Mansour through the news site's tip line. They agree to meet only by messages; she sends him nothing yet."
+      },
+      {
+        "date": "2026-11-22",
+        "event": "Salma opens a second bank account (savings for an English/clinical course) and searches wedding dresses online — both later look suspicious out of context."
+      },
+      {
+        "date": "2026-11-25",
+        "event": "Salma photographs the expired stock (pharmacy_stock.jpg, 23:14) and records her evidence voice memo (salma_memo.mp3) after closing. She writes the batch numbers in a note."
+      },
+      {
+        "date": "2026-11-26 morning",
+        "event": "Salma works her normal shift. Nour covers for her while she photographs the stockroom again at night (pharmacy_night.jpg)."
+      },
+      {
+        "date": "2026-11-26 18:40",
+        "event": "Hani confronts Salma in his office: he knows she photographed the stock. He tells her to delete everything and 'forget what she saw', and hints her job — and her family — could suffer. She leaves the branch shaken, leaves her phone in her locker in her hurry, and goes to Nour's flat."
+      },
+      {
+        "date": "2026-11-26 21:30",
+        "event": "From Nour's phone, Salma sends Nour a voice message (salma_to_nour.mp3): she is scared, hiding, and begs Nour not to tell anyone where she is — not even Mostafa yet, until the evidence is safe."
+      },
+      {
+        "date": "2026-11-27",
+        "event": "Salma is unreachable all day. Mostafa, Hoda and Tarek worry. Mostafa goes to the branch, finds Salma's phone in her locker, and gives it to Tarek on Friday night. Hani tells Mostafa that Salma 'quit suddenly'."
+      },
+      {
+        "date": "2026-11-28",
+        "event": "Play day (Saturday). Tarek unlocks Salma's iPhone and digs through it."
+      }
+    ],
+    "threeLayers": {
+      "layer1_surface": "Salma looks like she ran away: secret late-night chats with a man (Ziad), Mostafa believes she left him, her phone left behind, a second bank account, deleted searches. The surface story is a runaway bride-to-be.",
+      "layer2_evidence": "She was documenting expired/fake medicine sold at her branch: stock photos, a voice memo, a note with batch numbers (B-4417, B-4419, B-4423), planning to report it to the inspectorate.",
+      "layer3_truth": "The 'secret man' is Ziad the journalist, her contact, not a lover. The real threat is Hani the manager, who found out she was collecting evidence. Salma is hiding at Nour's place, safe but scared."
+    },
+    "redHerrings": {
+      "R1_second_account": "Second bank account = savings for a clinical pharmacy course (mail_course + note_course + bank mail).",
+      "R2_deleted_searches": "Deleted search history = wedding dress shopping (wedding_dress_shop.jpg + chat with Nour + mail_dress).",
+      "R3_loan": "Loan message = Salma borrowed money for her mother's medicine (mail_loan + chat_hoda + note_mother).",
+      "R4_jealousy": "Mostafa's jealousy is genuine but misdirected: he saw the late-night chats and assumed a lover (chat_mostafa + mostafa_voicemail.mp3)."
+    }
+  },
+  "characters": [
+    {
+      "id": "salma",
+      "name": "سلمى حسن",
+      "age": 25,
+      "role": "missing pharmacist — her iPhone is the scene of the game",
+      "avatar": "profile_salma.jpg",
+      "color": "#2E7D6B",
+      "description": "سلمى حسن، 25 سنة، صيدلانية مصرية: شعر بني غامق لحد الكتف، مكياج خفيف، بدون حجاب، بالطو أبيض في الشغل، ولبس كاجوال محتشم برّه الشغل."
+    },
+    {
+      "id": "tarek",
+      "name": "طارق حسن",
+      "age": 28,
+      "role": "player — Salma's older brother",
+      "avatar": "profile_tarek.jpg",
+      "color": "#3A5A8C",
+      "description": "طارق حسن، 28 سنة، رجل مصري: جسم متوسط، شعر أسود قصير، دقن قصيرة مربعة، بدون نضارة."
+    },
+    {
+      "id": "hoda",
+      "name": "هدى حسن",
+      "age": 55,
+      "role": "mother",
+      "avatar": "profile_hoda.jpg",
+      "color": "#8C6A3A",
+      "description": "هدى حسن، 55 سنة، أم مصرية: حجاب بيج، ابتسامة دافئة، نضارة قراءة."
+    },
+    {
+      "id": "mostafa",
+      "name": "مصطفى كامل",
+      "age": 27,
+      "role": "fiancé — believes Salma left him",
+      "avatar": "profile_mostafa.jpg",
+      "color": "#5A3A8C",
+      "description": "مصطفى كامل، 27 سنة، خطيب سلمى: رجل مصري رفيع، شعر أسود قصير، حليق، قمصان كاجوال."
+    },
+    {
+      "id": "nour",
+      "name": "نور حامد",
+      "age": 24,
+      "role": "coworker pharmacist — knows where Salma is",
+      "avatar": "profile_nour.jpg",
+      "color": "#C25E7A",
+      "description": "نور حامد، 24 سنة، صيدلانية زميلة سلمى في الشغل: شعر كيرلي، حجاب ملون، بالطو أبيض."
+    },
+    {
+      "id": "hani",
+      "name": "هاني فتحي",
+      "age": 40,
+      "role": "branch manager — the real threat",
+      "avatar": "hani_office.jpg",
+      "avatarNote": "No profile_hani.jpg exists (refused twice). hani_office.jpg IS his face and is used as his avatar/contact image; never reference profile_hani.jpg.",
+      "color": "#7A2E2E",
+      "description": "هاني فتحي، 40 سنة، مدير الفرع: رجل مصري جسمه تقيل، شعر رمادي، شنب سميك، بدلة غامقة."
+    },
+    {
+      "id": "ziad",
+      "name": "زياد منصور",
+      "age": 32,
+      "role": "journalist — Salma's contact, not a lover",
+      "avatar": null,
+      "avatarNote": "Ziad has NO photo at all (profile_ziad.jpg refused twice). Text-only contact: initials avatar, no avatar photo, no scene photo.",
+      "avatarFallback": "initials",
+      "color": "#2E5A7A",
+      "description": "زياد منصور، 32 سنة، صحفي: رجل مصري رفيع، نضارة، شعر أسود قصير، جاكيت كاجوال."
+    },
+    {
+      "id": "rana",
+      "name": "رنا عمر",
+      "age": 30,
+      "role": "journalist colleague of Ziad",
+      "avatar": null,
+      "avatarNote": "No locked profile photo exists for Rana (locked set has 7 profiles only); shell must render initials/color fallback, never invent a file",
+      "color": "#4A7A2E",
+      "description": "رنا عمر، 30 سنة، صحفية زميلة زياد: شعر أسود مفرود، بدون حجاب، بليزر أنيق."
+    }
+  ],
+  "lock": {
+    "passcode": "1807",
+    "derivation": "Salma's birthday, 18 July. Source 1: family_dinner.jpg caption ('عيد ميلاد سلمى الـ25 — 18 يوليو'). Source 2: chat_mostafa, 14 Nov ('عيد ميلادها 18/7'). Day+month = 1807. Never guessed blindly; chapter 1 guidance points at both sources.",
+    "hintSources": [
+      "photo family_dinner.jpg caption — Salma's birthday date",
+      "chat_mostafa — Mostafa mentions her birthday 18/7"
+    ],
+    "wrongHint": "طارق يفكر: الباسورد تاريخ مهم عند سلمى… عيد ميلادها؟ دور في صور العيلة وكلام مصطفى."
+  },
+  "chapters": [
+    {
+      "id": "ch1",
+      "n": 1,
+      "title": "التليفون",
+      "goal": "افتح التليفون، واتعرف على الناس، واعرف سلمى اختفت إزاي. الباسورد تاريخ مهم عند سلمى — دور في صور العيلة وكلام مصطفى.",
+      "hint": "ابدأ بالصور والشاتات. مين آخر حد كلم سلمى؟ ومين قلقان عليها؟"
+    },
+    {
+      "id": "ch2",
+      "n": 2,
+      "title": "آخر يوم",
+      "goal": "ابني آخر يوم لسلمى — الخميس 26 نوفمبر — من الصور والرسايل والإيميلات. إيه اللي حصل قبل ما تختفي؟",
+      "hint": "رتّب يوم الخميس بالترتيب. الصور بتقول وقت، والرسايل بتقول مكان."
+    },
+    {
+      "id": "ch3",
+      "n": 3,
+      "title": "مين بيكذب",
+      "goal": "قارن الروايات ببعض. حد بيكذب — لاقي التناقضات، وحدد مين الخطر الحقيقي.",
+      "hint": "لما اتنين يقولوا حاجتين عكس بعض في نفس الوقت، واحد فيهم بيكذب. دوّر على الوقت والمكان."
+    },
+    {
+      "id": "ch4",
+      "n": 4,
+      "title": "الاختيار",
+      "goal": "جمّع حزمة الأدلة (8 حاجات) واختار هتعمل بيها إيه. القرار ده هيحدد النهاية.",
+      "hint": "متروحش لهاني لوحدك، ومتتهمش حد من غير الدليل الكامل. الأدلة التمانية لازم تبقى معاك."
+    }
+  ],
+  "chats": [
+    {
+      "id": "chat_mostafa",
+      "app": "messages",
+      "with": "mostafa",
+      "title": "مصطفى ❤️",
+      "messages": [
+        {
+          "from": "mostafa",
+          "text": "سلمى، انتي فين؟ بكلمك من امبارح ومبترديش",
+          "time": "09:12",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "mostafa",
+          "text": "ماما هدى قالتلي إنك مروحتيش البيت امبارح. ده حقيقي؟",
+          "time": "09:13",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "me",
+          "text": "يا مصطفى أنا كويسة، متقلقش. عندي شغل كتير اليومين دول",
+          "time": "10:02",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "mostafa",
+          "text": "طب بتردي متأخر ليه؟ وبعدين مين الراجل اللي بتكلميه بالليل ده؟",
+          "time": "10:05",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "me",
+          "text": "مفيش راجل! دي شغل. انت بتشك فيا ليه؟",
+          "time": "10:06",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "mostafa",
+          "text": "شغل إيه اللي بالليل؟ أنا شفت الموبايل بينوّر الساعة 1 بالليل",
+          "time": "10:08",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "me",
+          "text": "مصطفى، أنا مش هتخانق معاك في الشات. هنتكلم لما أشوفك",
+          "time": "10:10",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "mostafa",
+          "text": "سلمى أنا بحبك، بس لو فيه حد تاني قوليلي بصراحة أحسن",
+          "time": "10:12",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "me",
+          "text": "مفيش حد تاني. صدقني. أنا بس تعبانة من الشغل",
+          "time": "10:15",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "mostafa",
+          "text": "عيد ميلادها 18/7، فاكر؟ أنا جبت الهدية خلاص",
+          "time": "18:20",
+          "date": "2026-11-14"
+        },
+        {
+          "from": "me",
+          "text": "ههههه انت لسه فاكر التاريخ؟ 18 يوليو، أيوه",
+          "time": "18:22",
+          "date": "2026-11-14"
+        },
+        {
+          "from": "mostafa",
+          "text": "سلمى، لو سمعتي الرسايل دي، ارجعي. أنا مش زعلان، أنا خايف عليكي بس",
+          "time": "20:40",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "mostafa",
+          "text": "روحت الفرع النهاردة، موبايلك كان في اللوكر. خدته وهديه لطارق",
+          "time": "21:05",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "mostafa",
+          "text": "هاني قالي إنك مشيتي من الشغل فجأة. هو ده حقيقي؟",
+          "time": "21:06",
+          "date": "2026-11-27"
+        }
+      ]
+    },
+    {
+      "id": "chat_nour",
+      "app": "messages",
+      "with": "nour",
+      "title": "نور 🌸",
+      "messages": [
+        {
+          "from": "me",
+          "text": "نور، انتي شوفتي العلب اللي في المخزن؟ التاريخ بتاعها منتهي",
+          "time": "14:30",
+          "date": "2026-11-18"
+        },
+        {
+          "from": "nour",
+          "text": "شوفته. أنا كنت خايفة أتكلم. انتي متأكدة؟",
+          "time": "14:32",
+          "date": "2026-11-18"
+        },
+        {
+          "from": "me",
+          "text": "متأكدة. الباتشات مكتوبة عندي. هصورها كلها",
+          "time": "14:33",
+          "date": "2026-11-18"
+        },
+        {
+          "from": "nour",
+          "text": "خدي بالك من نفسك يا سلمى. هاني لو عرف هيزعل أوي",
+          "time": "14:35",
+          "date": "2026-11-18"
+        },
+        {
+          "from": "me",
+          "text": "عشان كده مش هقول لحد غيرك. انتي الوحيدة اللي أثق فيها",
+          "time": "14:36",
+          "date": "2026-11-18"
+        },
+        {
+          "from": "nour",
+          "text": "جربتي الفستان اللي بعتّهولك؟",
+          "time": "20:10",
+          "date": "2026-11-22"
+        },
+        {
+          "from": "me",
+          "text": "أيوه! حلو أوي. بس غالي شوية. هفكر",
+          "time": "20:12",
+          "date": "2026-11-22",
+          "attachment": {
+            "type": "photo",
+            "ref": "wedding_dress_shop.jpg"
+          }
+        },
+        {
+          "from": "nour",
+          "text": "هتبقي أحلى عروسة. مصطفى هيتجنن 😄",
+          "time": "20:13",
+          "date": "2026-11-22"
+        },
+        {
+          "from": "me",
+          "text": "نور، أنا عندك النهاردة؟ حصل حاجة في الشغل ومش عايزة أروح البيت",
+          "time": "19:05",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "nour",
+          "text": "تعالي طبعا. الباب مفتوح. انتي كويسة؟",
+          "time": "19:06",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "me",
+          "text": "هحكيلك لما أوصل. متقوليش لحد إني عندك. لحد خالص",
+          "time": "19:07",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "nour",
+          "text": "حاضر. متخافيش",
+          "time": "19:08",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "nour",
+          "text": "سلمى، طمنيني عليكي. طارق ومصطفى بيدوروا عليكي",
+          "time": "10:30",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "me",
+          "text": "أنا كويسة. بس متقوليش لحد إني عندك لحد ما أأمن الأدلة",
+          "time": "10:45",
+          "date": "2026-11-27"
+        }
+      ]
+    },
+    {
+      "id": "chat_hoda",
+      "app": "messages",
+      "with": "hoda",
+      "title": "ماما ❤️",
+      "messages": [
+        {
+          "from": "hoda",
+          "text": "سلمى يا حبيبتي، انتي فين؟ العشا جاهز",
+          "time": "20:00",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hoda",
+          "text": "متتأخريش، الدوا بتاعي خلص وعايزة أروح الصيدلية بكرة",
+          "time": "20:05",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "me",
+          "text": "يا ماما أنا عند نور النهاردة، متقلقيش. هاجي بكرة",
+          "time": "20:20",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hoda",
+          "text": "طب خدي بالك من نفسك يا بنتي. طارق بيسأل عليكي",
+          "time": "20:22",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hoda",
+          "text": "طارق، سلمى مبتردش من امبارح. روح شوفها في الشغل",
+          "time": "11:00",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "hoda",
+          "text": "يا رب تكون بخير. أنا قلبي واجعني عليها",
+          "time": "11:01",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "me",
+          "text": "ماما، أنا آسفة. الفلوس اللي استلفتها عشان دواكي هرجعها أول الشهر",
+          "time": "15:00",
+          "date": "2026-11-20"
+        },
+        {
+          "from": "hoda",
+          "text": "متشغليش بالك يا حبيبتي، صحتي أهم. ربنا يخليكي ليا",
+          "time": "15:05",
+          "date": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": "chat_hani",
+      "app": "messages",
+      "with": "hani",
+      "title": "أ. هاني - مدير الفرع",
+      "messages": [
+        {
+          "from": "hani",
+          "text": "سلمى، تعالي مكتبي الساعة 6 ونص. عايزك في موضوع",
+          "time": "17:50",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "me",
+          "text": "حاضر يا أستاذ هاني. في حاجة؟",
+          "time": "17:55",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hani",
+          "text": "هتعرفي لما تيجي. ومتتأخريش",
+          "time": "17:56",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hani",
+          "text": "أنا عارف إنك صورتي المخزن. امسحي الصور دي فورا",
+          "time": "18:42",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hani",
+          "text": "وانسي اللي شفتيه. ده لمصلحتك انتي وعيلتك",
+          "time": "18:43",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hani",
+          "text": "لو الصور دي وصلت لحد، شغلك هيتأثر. وانتي عارفة أنا أقصد إيه",
+          "time": "18:45",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "me",
+          "text": "أنا… أنا مش فاهمة حضرتك بتتكلم عن إيه",
+          "time": "18:47",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hani",
+          "text": "متعمليش نفسك مش فاهمة. بكرة الصبح أشوفك في مكتبي، وهنقفل الموضوع ده",
+          "time": "18:48",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "hani",
+          "text": "سلمى، انتي فين؟ مجيتيش الشغل النهاردة. ده تصرف غير مسئول",
+          "time": "09:00",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "hani",
+          "text": "لو مرجعتيش بكرة، هعتبرك مستقيلة",
+          "time": "09:01",
+          "date": "2026-11-27"
+        }
+      ]
+    },
+    {
+      "id": "chat_ziad",
+      "app": "messages",
+      "with": "ziad",
+      "title": "زياد",
+      "messages": [
+        {
+          "from": "me",
+          "text": "مساء الخير، أنا صيدلانية في فرع الدقي. عندي معلومات عن أدوية منتهية بتتباع",
+          "time": "23:40",
+          "date": "2026-11-20"
+        },
+        {
+          "from": "ziad",
+          "text": "مساء النور. أنا زياد منصور، صحفي. ممكن تحكيلي أكتر؟ ومن غير اسمك لو خايفة",
+          "time": "23:45",
+          "date": "2026-11-20"
+        },
+        {
+          "from": "me",
+          "text": "مش هقول اسمي دلوقتي. بس عندي صور وباتشات",
+          "time": "23:47",
+          "date": "2026-11-20"
+        },
+        {
+          "from": "ziad",
+          "text": "تمام. متبعتيش حاجة على الشات ده غير لما نتفق. خدي بالك من نفسك",
+          "time": "23:50",
+          "date": "2026-11-20"
+        },
+        {
+          "from": "me",
+          "text": "صورت المخزن النهاردة. العلب المنتهية لسه بتتباع",
+          "time": "23:20",
+          "date": "2026-11-25",
+          "attachment": {
+            "type": "photo",
+            "ref": "pharmacy_stock.jpg"
+          }
+        },
+        {
+          "from": "ziad",
+          "text": "الصورة دي مهمة جدا. احتفظي بالأصل، ومتوريهاش لحد في الشغل",
+          "time": "23:25",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "ziad",
+          "text": "لو حصل أي تهديد، كلميني فورا. وعندي زميلة اسمها رنا بتشتغل معايا في التحقيق ده",
+          "time": "23:26",
+          "date": "2026-11-25"
+        },
+        {
+          "from": "me",
+          "text": "المدير عرف. هددني النهاردة. أنا خايفة",
+          "time": "19:30",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "ziad",
+          "text": "متروحيش الشغل بكرة. وخلي الأدلة في مكان آمن. هننشر لما تبقي جاهزة",
+          "time": "19:35",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "ziad",
+          "text": "سلمى، انتي كويسة؟ مردتيش من امبارح",
+          "time": "12:00",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "ziad",
+          "text": "لو حد من أهلك بيقرا الشات ده: أنا صحفي، وسِلمى كانت مصدر صحفي، مش أكتر. ساعدوها",
+          "time": "12:05",
+          "date": "2026-11-27"
+        }
+      ]
+    },
+    {
+      "id": "chat_rana",
+      "app": "messages",
+      "with": "rana",
+      "title": "رنا عمر",
+      "messages": [
+        {
+          "from": "rana",
+          "text": "أهلا سلمى، أنا رنا، زميلة زياد. هو حكالي عنك من غير اسم",
+          "time": "10:00",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "rana",
+          "text": "أنا بشتغل على نفس الموضوع من ناحية تانية: الموردين",
+          "time": "10:02",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "me",
+          "text": "أهلا يا رنا. أنا لسه بجمع الأدلة. خايفة أبعت حاجة دلوقتي",
+          "time": "10:05",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "rana",
+          "text": "صح. متستعجليش. الأدلة الكاملة أحسن من نص أدلة",
+          "time": "10:06",
+          "date": "2026-11-26"
+        },
+        {
+          "from": "rana",
+          "text": "فيه صفحة بلاغات على موقع هيئة الدواء. لما تبقي جاهزة، البلاغ من هناك رسمي",
+          "time": "10:08",
+          "date": "2026-11-26"
+        }
+      ]
+    },
+    {
+      "id": "chat_group_pharmacy",
+      "app": "messages",
+      "with": "nour",
+      "title": "جروب الفرع 💊",
+      "messages": [
+        {
+          "from": "hani",
+          "text": "يا جماعة، بكرة الجرد السنوي. الكل ييجي بدري",
+          "time": "09:00",
+          "date": "2026-11-24"
+        },
+        {
+          "from": "nour",
+          "text": "حاضر يا أستاذ هاني",
+          "time": "09:05",
+          "date": "2026-11-24"
+        },
+        {
+          "from": "me",
+          "text": "حاضر",
+          "time": "09:06",
+          "date": "2026-11-24"
+        },
+        {
+          "from": "hani",
+          "text": "واللي عنده أي ملاحظة على المخزن يقولها في مكتبي، مش في الجروب",
+          "time": "09:10",
+          "date": "2026-11-24"
+        },
+        {
+          "from": "nour",
+          "text": "سلمى مجتش النهاردة، حد شافها؟",
+          "time": "10:00",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "hani",
+          "text": "سلمى مشيت من الشغل فجأة امبارح. اللي يعرف عنها حاجة يقولي",
+          "time": "10:05",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "nour",
+          "text": "هي كانت تعبانة امبارح، يمكن راحت تكشف",
+          "time": "10:07",
+          "date": "2026-11-27"
+        },
+        {
+          "from": "hani",
+          "text": "تعبانة؟ هي كانت في مكتبي الساعة 6 ونص وكانت كويسة",
+          "time": "10:09",
+          "date": "2026-11-27"
+        }
+      ]
+    },
+    {
+      "id": "chat_family",
+      "app": "messages",
+      "with": "hoda",
+      "title": "العيلة 👨‍👩‍👧",
+      "messages": [
+        {
+          "from": "hoda",
+          "text": "يا ولاد، العشا يوم الجمعة عندنا. الكل ييجي",
+          "time": "16:00",
+          "date": "2026-11-15"
+        },
+        {
+          "from": "tarek",
+          "text": "حاضر يا ماما. سلمى، انتي جاية؟",
+          "time": "16:05",
+          "date": "2026-11-15"
+        },
+        {
+          "from": "me",
+          "text": "أيوه جاية. هجيب الكشري من المحل اللي بتحبيه",
+          "time": "16:07",
+          "date": "2026-11-15"
+        },
+        {
+          "from": "hoda",
+          "text": "ربنا يخليكوا لبعض يا ولادي",
+          "time": "16:10",
+          "date": "2026-11-15"
+        },
+        {
+          "from": "me",
+          "text": "بصوا الصورة دي، الكافيه اللي رحنا أنا ونور",
+          "time": "12:00",
+          "date": "2026-11-21",
+          "attachment": {
+            "type": "photo",
+            "ref": "salma_nour_cafe.jpg"
+          }
+        },
+        {
+          "from": "tarek",
+          "text": "حلوة أوي. اتبسطتوا؟",
+          "time": "12:05",
+          "date": "2026-11-21"
+        }
+      ]
+    }
+  ],
+  "mails": [
+    {
+      "id": "mail_hani_schedule",
+      "from": "hani",
+      "to": "salma",
+      "subject": "تعديل جدول الورديات - مهم",
+      "date": "2026-11-24",
+      "time": "09:00",
+      "folder": "inbox",
+      "body": "سلمى،\n\nتم تعديل جدول الورديات: ورديتك المسائية يوم الخميس 26 نوفمبر اتلغت، وهتشتغلي الوردية الصباحية بس، من 9 الصبح لـ 6 المغرب.\n\nوأي ملاحظة على المخزن أو الشغل عموما، تيجي مكتبي وتقوليها وش لوش. مفيش داعي للكتابة أو التصوير.\n\nهاني فتحي\nمدير الفرع"
+    },
+    {
+      "id": "mail_bank_account",
+      "from": "bank",
+      "to": "salma",
+      "subject": "تم فتح حساب التوفير الخاص بك",
+      "date": "2026-11-22",
+      "time": "11:30",
+      "folder": "inbox",
+      "body": "عزيزتي سلمى حسن،\n\nتم فتح حساب التوفير الثاني الخاص بك في بنك الأمل بنجاح.\nالحساب مخصص للادخار الشهري. أول إيداع: 1,000 جنيه.\n\nلو عندك أي استفسار، زوري أقرب فرع.\n\nبنك الأمل"
+    },
+    {
+      "id": "mail_course",
+      "from": "course",
+      "to": "salma",
+      "subject": "تأكيد التسجيل في كورس الصيدلة الإكلينيكية",
+      "date": "2026-11-22",
+      "time": "12:00",
+      "folder": "inbox",
+      "body": "أهلا سلمى،\n\nتم تأكيد تسجيلك في كورس الصيدلة الإكلينيكية (المستوى الأول) اللي هيبدأ في يناير 2027.\nالمصاريف: 12,000 جنيه، تدفع على 3 أقساط.\nالقسط الأول: 4,000 جنيه قبل 15 ديسمبر.\n\nعشان كده فتحتي حساب التوفير — فكرة ذكية. بالتوفيق!\n\nأكاديمية الدواء للتدريب"
+    },
+    {
+      "id": "mail_dress",
+      "from": "dress_shop",
+      "to": "salma",
+      "subject": "فساتين الزفاف - تشكيلة نوفمبر",
+      "date": "2026-11-21",
+      "time": "18:00",
+      "folder": "inbox",
+      "body": "عروستنا الجميلة سلمى،\n\nوصلت تشكيلة فساتين زفاف جديدة لشهر نوفمبر. الأسعار بتبدأ من 8,000 جنيه.\nممكن تحجزي معاينة في المحل في أي وقت.\n\nمحل فساتين الفرح — الدقي"
+    },
+    {
+      "id": "mail_loan",
+      "from": "mostafa",
+      "to": "salma",
+      "subject": "بخصوص الفلوس",
+      "date": "2026-11-20",
+      "time": "15:30",
+      "folder": "inbox",
+      "body": "سلمى،\n\nالفلوس اللي استلفتيها مني عشان دوا ماما — متشغليش بالك بيها خالص. رجعيها وقت ما تقدري، أو مترجعيهاش أصلا.\nصحة ماما أهم من أي فلوس.\n\nمصطفى"
+    },
+    {
+      "id": "mail_ziad",
+      "from": "ziad",
+      "to": "salma",
+      "subject": "من غير عنوان",
+      "date": "2026-11-25",
+      "time": "23:40",
+      "folder": "inbox",
+      "body": "سلمى،\n\nأنا زياد، من الإيميل اللي بعتّيه على موقع الجريدة. متبعتيش أي ملفات على الإيميل ده — خلينا على الشات بس، أأمن.\n\nاللي محتاجه منك: صور واضحة للعلب (التاريخ والباتش باينين)، ولو فيه فواتير مخالفة.\nلما تجهزي، هنقدم البلاغ سوا لهيئة الدواء، وهننشر بعد ما تتأكدي إنك في مكان آمن.\n\nوافتكري: انتي مصدر صحفي. أنا مش هكشف اسمك من غير إذنك.\n\nزياد منصور\nبوابة القاهرة الإخبارية"
+    },
+    {
+      "id": "mail_inspectorate",
+      "from": "inspectorate",
+      "to": "salma",
+      "subject": "كيفية تقديم بلاغ عن أدوية منتهية",
+      "date": "2026-11-23",
+      "time": "10:00",
+      "folder": "inbox",
+      "body": "عزيزتي المواطنة،\n\nشكرا لتواصلك مع هيئة الدواء المصرية.\nلتقديم بلاغ عن أدوية منتهية الصلاحية أو مغشوشة، يرجى تجهيز:\n1) صور واضحة للعبوات (تاريخ الصلاحية والباتش).\n2) اسم وعنوان الصيدلية.\n3) فاتورة الشراء إن وجدت.\n\nيمكنك تقديم البلاغ من صفحة البلاغات على موقع الهيئة.\n\nهيئة الدواء المصرية — إدارة البلاغات"
+    },
+    {
+      "id": "mail_pharmacy_hr",
+      "from": "hr",
+      "to": "salma",
+      "subject": "تقييم الأداء الشهري",
+      "date": "2026-11-15",
+      "time": "13:00",
+      "folder": "inbox",
+      "body": "سلمى،\n\nتقييم أدائك لشهر أكتوبر ممتاز. العملاء بيشكروا في تعاملك، والتزامك بالمواعيد كامل.\n\nنتمنى لك التوفيق.\n\nإدارة الموارد البشرية — صيدليات الشفاء"
+    },
+    {
+      "id": "mail_spam",
+      "from": "spam",
+      "to": "salma",
+      "subject": "مبروك! كسبت رحلة!",
+      "date": "2026-11-26",
+      "time": "08:00",
+      "folder": "spam",
+      "body": "مبروك! انت كسبت رحلة لشرم الشيخ! اضغط هنا عشان تستلم جايزتك. العرض ساري ليوم واحد بس!"
+    },
+    {
+      "id": "mail_nour_cover",
+      "from": "nour",
+      "to": "salma",
+      "subject": "هغطي ورديتك بكرة",
+      "date": "2026-11-26",
+      "time": "07:30",
+      "folder": "inbox",
+      "body": "سلمى،\n\nأنا هغطي ورديتك الصباحية بكرة لو عايزة ترتاحي شوية. انتي شكلك تعبانة من امبارح.\nبس خدي بالك: هاني سأل عليكي النهاردة وقال إنه عايزك في مكتبه.\n\nنور"
+    }
+  ],
+  "notes": [
+    {
+      "id": "note_batches",
+      "title": "باتشات المخزن",
+      "date": "2026-11-25",
+      "body": "علب منتهية في المخزن — فرع الدقي:\n\nباتش B-4417: دوا ضغط، منتهي من سبتمبر 2026\nباتش B-4419: مضاد حيوي، منتهي من أكتوبر 2026\nباتش B-4423: دوا سكر، منتهي من أكتوبر 2026\n\nالعدد: حوالي 40 علبة في الرف اللي ورا.\nصورتها كلها. الميمو الصوتي فيه التفاصيل.\nلو حصلّي حاجة، الباتشات دي هي الدليل."
+    },
+    {
+      "id": "note_course",
+      "title": "تحويشة الكورس",
+      "date": "2026-11-22",
+      "body": "الكورس: صيدلة إكلينيكية، 12,000 جنيه.\nالقسط الأول 4,000 قبل 15 ديسمبر.\nالحساب التاني في بنك الأمل للكورس بس.\nأحط 1,000 كل شهر من المرتب."
+    },
+    {
+      "id": "note_wedding",
+      "title": "تجهيزات الفرح",
+      "date": "2026-11-21",
+      "body": "فستان: محل الدقي، الأسعار من 8,000.\nالقاعة: لسه بندور.\nمصطفى قال هيحجز القاعة في ديسمبر.\nأم مصطفى عايزة الفرح في الصيف."
+    },
+    {
+      "id": "note_mother",
+      "title": "دوا ماما",
+      "date": "2026-11-20",
+      "body": "دوا ماما خلص. استلفت من مصطفى عشان أجيبه.\nهرجعله أول الشهر. متنساش."
+    },
+    {
+      "id": "note_todo",
+      "title": "حاجات لازم أعملها",
+      "date": "2026-11-26",
+      "body": "1) أجيب دوا ماما من الفرع\n2) أرد على مصطفى\n3) أكلم نور عن الوردية\n4) أشتري كشري للعشا يوم الجمعة"
+    },
+    {
+      "id": "note_report_draft",
+      "title": "مسودة البلاغ",
+      "date": "2026-11-26",
+      "body": "مسودة بلاغ لهيئة الدواء (لسه متبعتش):\n\nأنا صيدلانية في فرع الدقي، صيدليات الشفاء.\nفي الفرع بتتباع أدوية منتهية الصلاحية: باتشات B-4417 وB-4419 وB-4423.\nعندي صور وفويس ميمو بالتفاصيل.\nأطلب التحقيق في الفرع وحماية المُبلّغ."
+    }
+  ],
+  "photos": [
+    {
+      "id": "photo_profile_salma",
+      "file": "profile_salma.jpg",
+      "caption": "سلمى حسن — صورة البروفايل",
+      "taken": "2026-10-01",
+      "note": "صورة البروفايل بتاعة سلمى.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_profile_tarek",
+      "file": "profile_tarek.jpg",
+      "caption": "طارق حسن — صورة البروفايل",
+      "taken": "2026-10-01",
+      "note": "صورة البروفايل بتاعة طارق.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_profile_hoda",
+      "file": "profile_hoda.jpg",
+      "caption": "هدى حسن — صورة البروفايل",
+      "taken": "2026-10-01",
+      "note": "صورة البروفايل بتاعة ماما هدى.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_profile_mostafa",
+      "file": "profile_mostafa.jpg",
+      "caption": "مصطفى كامل — صورة البروفايل",
+      "taken": "2026-10-01",
+      "note": "صورة البروفايل بتاعة مصطفى.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_profile_nour",
+      "file": "profile_nour.jpg",
+      "caption": "نور حامد — صورة البروفايل",
+      "taken": "2026-10-01",
+      "note": "صورة البروفايل بتاعة نور.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_profile_hani",
+      "file": "profile_hani.jpg",
+      "caption": "هاني فتحي — صورة البروفايل",
+      "taken": "2026-10-01",
+      "note": null,
+      "medium": "photo",
+      "optional": true
+    },
+    {
+      "id": "photo_profile_ziad",
+      "file": "profile_ziad.jpg",
+      "caption": "زياد منصور — صورة البروفايل",
+      "taken": "2026-10-01",
+      "note": null,
+      "medium": "photo",
+      "optional": true
+    },
+    {
+      "id": "photo_pharmacy_stock",
+      "file": "pharmacy_stock.jpg",
+      "caption": "المخزن — 25 نوفمبر، الساعة 11 بالليل. علب على الرف اللي ورا.",
+      "taken": "2026-11-25",
+      "note": "صورة للمخزن بالليل. التواريخ على العلب باينة في الصورة.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_salma_nour_cafe",
+      "file": "salma_nour_cafe.jpg",
+      "caption": "أنا ونور في الكافيه — 21 نوفمبر",
+      "taken": "2026-11-21",
+      "note": "سلمى ونور في كافيه في الدقي.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_hani_office",
+      "file": "hani_office.jpg",
+      "caption": "مكتب هاني — الصورة دي من صفحة الفرع",
+      "taken": "2026-11-10",
+      "note": "مكتب مدير الفرع. الصورة دي كمان هي صورة هاني اللي بتستخدم كأفاتار لجهة اتصاله.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_pharmacy_night",
+      "file": "pharmacy_night.jpg",
+      "caption": "الفرع بالليل — 26 نوفمبر، الساعة 6 ونص. هاني لسه في المكتب.",
+      "taken": "2026-11-26",
+      "note": "صورة للفرع بعد ما قفل. نور الضوء في مكتب هاني باين.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_family_dinner",
+      "file": "family_dinner.jpg",
+      "caption": "عيد ميلاد سلمى الـ25 — 18 يوليو. العيلة كلها في البيت.",
+      "taken": "2026-07-18",
+      "note": "عشا عائلي في البيت. سلمى في النص.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_salma_mostafa_park",
+      "file": "salma_mostafa_park.jpg",
+      "caption": "أنا ومصطفى في الحديقة — أول خروجة بعد الخطوبة",
+      "taken": "2026-09-04",
+      "note": "سلمى ومصطفى في حديقة.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_food_koshary",
+      "file": "food_koshary.jpg",
+      "caption": "كشري الجمعة — أحلى أكلة",
+      "taken": "2026-11-13",
+      "note": "طبق كشري.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_cairo_street",
+      "file": "cairo_street.jpg",
+      "caption": "شارع الدقي الصبح — زحمة كالعادة",
+      "taken": "2026-11-24",
+      "note": "شارع في الدقي.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_cat",
+      "file": "cat_photo.jpg",
+      "caption": "القطة اللي تحت العمارة 😺",
+      "taken": "2026-11-19",
+      "note": "قطة في الشارع.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_wedding_dress",
+      "file": "wedding_dress_shop.jpg",
+      "caption": "فساتين الفرح — محل الدقي، 22 نوفمبر",
+      "taken": "2026-11-22",
+      "note": "فساتين زفاف في محل.",
+      "medium": "photo"
+    },
+    {
+      "id": "photo_salma_desk",
+      "file": "salma_desk.jpg",
+      "caption": "مكتبي في الفرع — 26 نوفمبر الصبح",
+      "taken": "2026-11-26",
+      "note": "مكتب سلمى في الصيدلية. الموبايل والشنطة مش على المكتب.",
+      "medium": "photo"
+    }
+  ],
+  "audios": [
+    {
+      "id": "audio_memo",
+      "file": "salma_memo.mp3",
+      "title": "ميمو — المخزن",
+      "durationSec": 68,
+      "from": "salma",
+      "transcript": "أنا سلمى. النهاردة 25 نوفمبر، الساعة 11 بالليل، وأنا لسه في المخزن بعد ما الفرع قفل. العلب اللي على الرف اللي ورا كلها منتهية: باتش B-4417 دوا ضغط منتهي من سبتمبر، وباتش B-4419 مضاد حيوي منتهي من أكتوبر، وباتش B-4423 دوا سكر منتهي من أكتوبر. حوالي أربعين علبة. أنا صورتها كلها، وكتبت الباتشات في النوتة. الأدوية دي بتتباع للناس عادي. أنا هبلّغ هيئة الدواء، ولو حد سألني أنا عندي الدليل."
+    },
+    {
+      "id": "audio_to_nour",
+      "file": "salma_to_nour.mp3",
+      "title": "فويس لنور",
+      "durationSec": 45,
+      "from": "salma",
+      "transcript": "نور، أنا سلمى. أنا عندك في البيت، بس متقوليش لحد. هاني هددني النهاردة في مكتبه، قالي امسحي الصور وانسي اللي شفتيه. أنا خايفة أوي. متقوليش لمصطفى ولا لطارق إني عندك، لحد ما أأمن الأدلة. أنا كويسة، بس خايفة. خليكي جنبي."
+    },
+    {
+      "id": "audio_mostafa_voicemail",
+      "file": "mostafa_voicemail.mp3",
+      "title": "فويس ميل — مصطفى",
+      "durationSec": 38,
+      "from": "mostafa",
+      "transcript": "سلمى، أنا مصطفى. بكلمك للمرة العاشرة ومبترديش. أنا عارف إننا اتخانقنا على الراجل اللي بتكلميه بالليل، وأنا آسف لو شكيت فيكي. بس ارجعي، أرجوكي. ماما هدى قلقانة أوي، وطارق بيدور عليكي. لو سمعتي الرسالة دي، كلميني. أنا بحبك."
+    }
+  ],
+  "sites": [
+    {
+      "id": "site_pharmacy",
+      "name": "صيدليات الشفاء",
+      "url": "www.shifa-pharmacy.com.eg",
+      "pages": [
+        {
+          "path": "/",
+          "title": "صيدليات الشفاء — الرئيسية",
+          "body": "صيدليات الشفاء — سلسلة صيدليات في القاهرة والجيزة. فروعنا: الدقي، المهندسين، فيصل، مدينة نصر. خدمة التوصيل لحد البيت."
+        },
+        {
+          "path": "/branches/dokki",
+          "title": "فرع الدقي",
+          "body": "فرع الدقي: 12 شارع التحرير، الدقي. مدير الفرع: هاني فتحي. مواعيد العمل: 9 صباحا — 12 بالليل. صيدلي المناوبة: سلمى حسن، نور حامد."
+        },
+        {
+          "path": "/branches/dokki/staff",
+          "title": "فريق فرع الدقي",
+          "body": "فريق الفرع: هاني فتحي (مدير الفرع)، سلمى حسن (صيدلانية)، نور حامد (صيدلانية). سلمى حسن: صيدلانية من 2023، تقييمها ممتاز."
+        }
+      ]
+    },
+    {
+      "id": "site_news",
+      "name": "بوابة القاهرة الإخبارية",
+      "url": "www.cairo-gate.news",
+      "pages": [
+        {
+          "path": "/",
+          "title": "بوابة القاهرة الإخبارية",
+          "body": "آخر الأخبار من القاهرة. تحقيقات، اقتصاد، صحة، رياضة."
+        },
+        {
+          "path": "/investigations",
+          "title": "تحقيقات",
+          "body": "تحقيقات بوابة القاهرة: زياد منصور ورنا عمر بيشتغلوا على ملفات الصحة والدواء. لو عندك معلومة، ابعت على صفحة 'ابعت خبر'."
+        },
+        {
+          "path": "/tip",
+          "title": "ابعت خبر",
+          "body": "عندك معلومة؟ ابعتها بسرية تامة. اسمك مش هيتكشف من غير إذنك. للتواصل: زياد منصور — صحفي تحقيقات."
+        },
+        {
+          "path": "/article/missing-pharmacist",
+          "title": "صيدلانية مختفية في الدقي؟",
+          "body": "تداولت صفحات التواصل خبر اختفاء صيدلانية من فرع في الدقي منذ يومين. أسرتها بتناشد أي حد يعرف عنها حاجة يتواصل معاهم. الجهات المعنية لم تعلن أي تفاصيل حتى الآن."
+        }
+      ]
+    },
+    {
+      "id": "site_inspectorate",
+      "name": "هيئة الدواء المصرية — البلاغات",
+      "url": "www.eda.gov.eg/reports",
+      "pages": [
+        {
+          "path": "/",
+          "title": "هيئة الدواء المصرية",
+          "body": "هيئة الدواء المصرية — الجهة المسئولة عن سلامة الدواء في مصر."
+        },
+        {
+          "path": "/reports",
+          "title": "قدّم بلاغ",
+          "body": "لتقديم بلاغ عن أدوية منتهية أو مغشوشة، جهّز: صور واضحة للعبوات (تاريخ الصلاحية والباتش)، اسم وعنوان الصيدلية، فاتورة الشراء إن وجدت. البلاغ سري، وبيانات المُبلّغ محمية."
+        },
+        {
+          "path": "/reports/confirm",
+          "title": "تم استلام البلاغ",
+          "body": "تم استلام بلاغك بنجاح. رقم البلاغ هيوصلك في رسالة. سيتم التحقيق خلال 10 أيام عمل."
+        }
+      ]
+    },
+    {
+      "id": "site_search",
+      "name": "ابحث",
+      "url": "www.abhath.eg",
+      "pages": [
+        {
+          "path": "/",
+          "title": "ابحث — محرك البحث",
+          "body": "ابحث في كل حاجة. اكتب كلمة ودوس بحث."
+        },
+        {
+          "path": "/results?q=صيدليات+الشفاء",
+          "title": "نتائج: صيدليات الشفاء",
+          "body": "1) صيدليات الشفاء — الموقع الرسمي. 2) فرع الدقي — العنوان والمواعيد. 3) وظائف في صيدليات الشفاء."
+        },
+        {
+          "path": "/results?q=هاني+فتحي",
+          "title": "نتائج: هاني فتحي",
+          "body": "1) هاني فتحي — مدير فرع الدقي، صيدليات الشفاء. 2) لا نتائج أخرى."
+        },
+        {
+          "path": "/results?q=هيئة+الدواء",
+          "title": "نتائج: هيئة الدواء",
+          "body": "1) هيئة الدواء المصرية — صفحة البلاغات. 2) كيفية تقديم بلاغ عن أدوية منتهية."
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "id": "file_report_draft",
+      "name": "مسودة البلاغ.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "مسودة بلاغ لهيئة الدواء (لسه متبعتش):\n\nأنا صيدلانية في فرع الدقي، صيدليات الشفاء.\nفي الفرع بتتباع أدوية منتهية الصلاحية: باتشات B-4417 وB-4419 وB-4423.\nعندي صور وفويس ميمو بالتفاصيل.\nأطلب التحقيق في الفرع وحماية المُبلّغ.\n\n— سلمى حسن، 26 نوفمبر 2026"
+    },
+    {
+      "id": "file_stock_list",
+      "name": "جرد المخزن.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "جرد المخزن — فرع الدقي، 25 نوفمبر 2026\n\nالرف اللي ورا:\n- دوا ضغط، باتش B-4417، منتهي سبتمبر 2026\n- مضاد حيوي، باتش B-4419، منتهي أكتوبر 2026\n- دوا سكر، باتش B-4423، منتهي أكتوبر 2026\n\nملحوظة: العلب دي لسه على الرف وبتتباع."
+    },
+    {
+      "id": "file_invoice",
+      "name": "فاتورة المورد.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "فاتورة مورد — شركة الأدوية المتحدة\nالتاريخ: 15 أكتوبر 2026\n\nالباتشات الموردة للفرع:\n- B-4417 (دوا ضغط)\n- B-4419 (مضاد حيوي)\n- B-4423 (دوا سكر)\n\nالفاتورة معتمدة من مدير الفرع: هاني فتحي."
+    },
+    {
+      "id": "file_shift_rota",
+      "name": "جدول الورديات.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "جدول ورديات فرع الدقي — أسبوع 23-29 نوفمبر 2026\n\nسلمى حسن: صباحي 9-6، الخميس 26 نوفمبر.\nنور حامد: مسائي 6-12.\nهاني فتحي: موجود في الفرع لحد 7 مساء يوم الخميس."
+    },
+    {
+      "id": "file_recipe2",
+      "name": "وصفة الكشري.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "وصفة الكشري — زي ما ماما بتعمله.\nرز + عدس + مكرونة + حمص + بصل محمر + صلصة + دقة.\nالسر في البصل: يتحمر على نار هادية."
+    },
+    {
+      "id": "file_playlist",
+      "name": "أغاني.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "أغاني على الموبايل:\n1) محمد حماقي — ما بلاش\n2) محمد منير — الليلة يا سمرا\n3) فيروز — نسم علينا الهوى"
+    },
+    {
+      "id": "file_wedding_list",
+      "name": "ليستة الفرح.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "ليستة الفرح:\n- الفستان: محل الدقي\n- القاعة: لسه بندور\n- المعازيم: حوالي 200\n- مصطفى هيحجز القاعة في ديسمبر"
+    },
+    {
+      "id": "file_bank_sms",
+      "name": "رسالة البنك.txt",
+      "folder": "Files",
+      "kind": "txt",
+      "body": "بنك الأمل: تم إيداع 1,000 جنيه في حساب التوفير الخاص بك يوم 22 نوفمبر 2026. رصيد الحساب: 1,000 جنيه. الحساب ده للكورس."
+    }
+  ],
+  "events": [
+    {
+      "id": "E1",
+      "trigger": {
+        "type": "unlock",
+        "ref": "lock"
+      },
+      "delaySec": 5,
+      "actions": [
+        {
+          "type": "notification",
+          "title": "مصطفى ❤️",
+          "body": "سلمى، انتي فين؟ بكلمك من امبارح ومبترديش"
+        },
+        {
+          "type": "message",
+          "chatId": "chat_mostafa",
+          "message": {
+            "from": "mostafa",
+            "text": "طارق؟ انت اللي فاتح موبايل سلمى؟ طمني، لقيت حاجة؟",
+            "time": "09:30",
+            "date": "2026-11-28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "trigger": {
+        "type": "open_chat",
+        "ref": "chat_nour"
+      },
+      "delaySec": 8,
+      "actions": [
+        {
+          "type": "message",
+          "chatId": "chat_nour",
+          "message": {
+            "from": "nour",
+            "text": "طارق؟ دي نور. لو بتقرا الشات ده، متقولش لمصطفى إني كلمتك. سلمى محتاجة وقت.",
+            "time": "09:40",
+            "date": "2026-11-28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "trigger": {
+        "type": "open_photo",
+        "ref": "photo_pharmacy_stock"
+      },
+      "delaySec": 10,
+      "actions": [
+        {
+          "type": "notification",
+          "title": "هاني فتحي",
+          "body": "سلمى، انتي فين؟ مجيتيش الشغل النهاردة"
+        },
+        {
+          "type": "message",
+          "chatId": "chat_hani",
+          "message": {
+            "from": "hani",
+            "text": "لو حد بيفتح موبايل سلمى، ياريت يرجعه الفرع. دي ممتلكات الشغل.",
+            "time": "10:00",
+            "date": "2026-11-28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E4",
+      "trigger": {
+        "type": "open_audio",
+        "ref": "audio_memo"
+      },
+      "delaySec": 6,
+      "actions": [
+        {
+          "type": "message",
+          "chatId": "chat_ziad",
+          "message": {
+            "from": "ziad",
+            "text": "لو حد من أهل سلمى بيسمع الميمو ده: الأدلة دي حقيقية، وأنا شاهد عليها. متضيعوهاش.",
+            "time": "10:15",
+            "date": "2026-11-28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E5",
+      "trigger": {
+        "type": "complete_deduction",
+        "ref": "D1"
+      },
+      "delaySec": 5,
+      "actions": [
+        {
+          "type": "message",
+          "chatId": "chat_hoda",
+          "message": {
+            "from": "hoda",
+            "text": "طارق يا حبيبي، طمني. لقيت سلمى؟ أنا قلقانة أوي.",
+            "time": "11:00",
+            "date": "2026-11-28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E6",
+      "trigger": {
+        "type": "open_chat",
+        "ref": "chat_ziad"
+      },
+      "delaySec": 12,
+      "actions": [
+        {
+          "type": "notification",
+          "title": "بوابة القاهرة الإخبارية",
+          "body": "صيدلانية مختفية في الدقي؟"
+        },
+        {
+          "type": "message",
+          "chatId": "chat_ziad",
+          "message": {
+            "from": "ziad",
+            "text": "نشرنا خبر صغير عن الاختفاء من غير اسم. لو سلمى شافت الخبر، هتعرف إننا بندور عليها.",
+            "time": "11:30",
+            "date": "2026-11-28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "trigger": {
+        "type": "pack_complete",
+        "ref": "clue_pack"
+      },
+      "delaySec": 5,
+      "actions": [
+        {
+          "type": "message",
+          "chatId": "chat_nour",
+          "message": {
+            "from": "nour",
+            "text": "طارق، الأدلة بقت كاملة؟ سلمى هتطمن لما تعرف. أنا هقولها إنك لقيت كل حاجة.",
+            "time": "12:00",
+            "date": "2026-11-28"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E8",
+      "trigger": {
+        "type": "chapter_start",
+        "ref": "ch4"
+      },
+      "delaySec": 8,
+      "actions": [
+        {
+          "type": "message",
+          "chatId": "chat_hani",
+          "message": {
+            "from": "hani",
+            "text": "طارق، متعملش حاجة من غير ما تكلمني الأول. أنا عارف حاجات انت متعرفهاش.",
+            "time": "12:30",
+            "date": "2026-11-28"
+          }
+        },
+        {
+          "type": "notification",
+          "title": "تذكير",
+          "body": "حزمة الأدلة لازم تبقى كاملة قبل ما تختار"
+        }
+      ]
+    }
+  ],
+  "clues": [
+    {
+      "id": "clue_stock_photo",
+      "title": "صورة المخزن: علب منتهية",
+      "sources": [
+        "photo_pharmacy_stock",
+        "note_batches",
+        "file_stock_list"
+      ],
+      "pack": true,
+      "chapter": 2
+    },
+    {
+      "id": "clue_memo",
+      "title": "الميمو الصوتي: سلمى بتسجل الدليل",
+      "sources": [
+        "audio_memo",
+        "note_batches",
+        "photo_pharmacy_stock"
+      ],
+      "pack": true,
+      "chapter": 2
+    },
+    {
+      "id": "clue_batches",
+      "title": "نوتة الباتشات: B-4417 وB-4419 وB-4423",
+      "sources": [
+        "note_batches",
+        "file_stock_list",
+        "file_invoice"
+      ],
+      "pack": true,
+      "chapter": 2
+    },
+    {
+      "id": "clue_scared_voice",
+      "title": "فويس سلمى لنور: خايفة ومستخبية",
+      "sources": [
+        "audio_to_nour",
+        "chat_nour",
+        "chat_hani"
+      ],
+      "pack": true,
+      "chapter": 3
+    },
+    {
+      "id": "clue_hani_threat",
+      "title": "تهديد هاني في الشات",
+      "sources": [
+        "chat_hani",
+        "audio_to_nour",
+        "chat_group_pharmacy"
+      ],
+      "pack": true,
+      "chapter": 3
+    },
+    {
+      "id": "clue_ziad_journalist",
+      "title": "زياد صحفي مش حبيب",
+      "sources": [
+        "chat_ziad",
+        "mail_ziad",
+        "site_news"
+      ],
+      "pack": true,
+      "chapter": 3
+    },
+    {
+      "id": "clue_night_photo",
+      "title": "صورة الفرع بالليل: هاني في المكتب 6 ونص",
+      "sources": [
+        "photo_pharmacy_night",
+        "chat_hani",
+        "file_shift_rota"
+      ],
+      "pack": true,
+      "chapter": 2
+    },
+    {
+      "id": "clue_report_draft",
+      "title": "مسودة البلاغ لهيئة الدواء",
+      "sources": [
+        "note_report_draft",
+        "file_report_draft",
+        "mail_inspectorate"
+      ],
+      "pack": true,
+      "chapter": 3
+    },
+    {
+      "id": "clue_last_day",
+      "title": "آخر يوم: الخميس 26 نوفمبر",
+      "sources": [
+        "chat_hani",
+        "photo_salma_desk",
+        "file_shift_rota"
+      ],
+      "pack": false,
+      "chapter": 2
+    },
+    {
+      "id": "clue_phone_in_locker",
+      "title": "الموبايل كان في اللوكر",
+      "sources": [
+        "chat_mostafa",
+        "photo_salma_desk"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_hani_lie",
+      "title": "هاني قال إنها مشيت فجأة — والشات بيقول غير كده",
+      "sources": [
+        "chat_group_pharmacy",
+        "chat_hani",
+        "chat_mostafa"
+      ],
+      "pack": false,
+      "chapter": 3
+    },
+    {
+      "id": "clue_nour_knows",
+      "title": "نور عارفة حاجة ومش بتقولها",
+      "sources": [
+        "chat_nour",
+        "audio_to_nour",
+        "chat_group_pharmacy"
+      ],
+      "pack": false,
+      "chapter": 3
+    },
+    {
+      "id": "clue_invoice_match",
+      "title": "الفاتورة: نفس الباتشات معتمدة من هاني",
+      "sources": [
+        "file_invoice",
+        "file_stock_list",
+        "note_batches"
+      ],
+      "pack": false,
+      "chapter": 2
+    },
+    {
+      "id": "clue_inspectorate_how",
+      "title": "إزاي تبلّغ هيئة الدواء",
+      "sources": [
+        "mail_inspectorate",
+        "site_inspectorate",
+        "chat_rana"
+      ],
+      "pack": false,
+      "chapter": 3
+    },
+    {
+      "id": "clue_rana_link",
+      "title": "رنا: زميلة زياد في التحقيق",
+      "sources": [
+        "chat_rana",
+        "chat_ziad",
+        "site_news"
+      ],
+      "pack": false,
+      "chapter": 3
+    },
+    {
+      "id": "clue_branch_staff",
+      "title": "فريق الفرع: هاني وسِلمى ونور",
+      "sources": [
+        "site_pharmacy",
+        "chat_group_pharmacy"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_birthday",
+      "title": "عيد ميلاد سلمى: 18 يوليو",
+      "sources": [
+        "photo_family_dinner",
+        "chat_mostafa"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_second_account",
+      "title": "الحساب التاني: تحويشة الكورس",
+      "sources": [
+        "mail_bank_account",
+        "mail_course",
+        "note_course"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_dress_search",
+      "title": "البحث المحذوف: فساتين فرح",
+      "sources": [
+        "photo_wedding_dress",
+        "mail_dress",
+        "chat_nour"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_loan_mother",
+      "title": "الفلوس المستلفة: دوا ماما",
+      "sources": [
+        "mail_loan",
+        "chat_hoda",
+        "note_mother"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_mostafa_jealousy",
+      "title": "غيرة مصطفى: شاف الشات وفهم غلط",
+      "sources": [
+        "chat_mostafa",
+        "audio_mostafa_voicemail",
+        "chat_ziad"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_news_article",
+      "title": "خبر الاختفاء في الجريدة",
+      "sources": [
+        "site_news",
+        "chat_ziad"
+      ],
+      "pack": false,
+      "chapter": 3
+    },
+    {
+      "id": "clue_family_dinner",
+      "title": "عشا العيلة: سلمى قريبة من أهلها",
+      "sources": [
+        "photo_family_dinner",
+        "chat_family",
+        "photo_food_koshary"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_cafe_friendship",
+      "title": "سلمى ونور صحاب بجد",
+      "sources": [
+        "photo_salma_nour_cafe",
+        "chat_nour",
+        "chat_family"
+      ],
+      "pack": false,
+      "chapter": 1
+    },
+    {
+      "id": "clue_park_couple",
+      "title": "سلمى ومصطفى: مخطوبين وبيحبوا بعض",
+      "sources": [
+        "photo_salma_mostafa_park",
+        "chat_mostafa",
+        "note_wedding"
+      ],
+      "pack": false,
+      "chapter": 1
+    }
+  ],
+  "deductions": [
+    {
+      "id": "D1",
+      "chapter": 2,
+      "title": "إيه اللي حصل لسلمى يوم الخميس؟",
+      "type": "pick",
+      "options": [
+        "هربت مع حد بتحبه",
+        "اكتشفت حاجة في الشغل وبقت خايفة",
+        "سافرت من غير ما تقول لحد",
+        "زعلت من مصطفى ومشيت"
+      ],
+      "correct": [
+        "اكتشفت حاجة في الشغل وبقت خايفة"
+      ],
+      "hint": "بص على آخر يوم: مين كلمها الساعة 6 ونص؟ وإيه اللي صورته بالليل؟"
+    },
+    {
+      "id": "T1",
+      "chapter": 3,
+      "title": "رتّب أحداث الخميس 26 نوفمبر",
+      "type": "order",
+      "options": [
+        "سلمى بتشتغل الوردية الصباحية في الفرع",
+        "هاني بيطلب سلمى في مكتبه الساعة 6 ونص",
+        "هاني بيهدد سلمى: امسحي الصور وانسي اللي شفتيه",
+        "سلمى بتروح عند نور وبتقولها متقوليش لحد",
+        "سلمى بتبعت فويس لنور وهي خايفة",
+        "مصطفى بيلاقي الموبايل في اللوكر تاني يوم"
+      ],
+      "correct": [
+        "سلمى بتشتغل الوردية الصباحية في الفرع",
+        "هاني بيطلب سلمى في مكتبه الساعة 6 ونص",
+        "هاني بيهدد سلمى: امسحي الصور وانسي اللي شفتيه",
+        "سلمى بتروح عند نور وبتقولها متقوليش لحد",
+        "سلمى بتبعت فويس لنور وهي خايفة",
+        "مصطفى بيلاقي الموبايل في اللوكر تاني يوم"
+      ],
+      "hint": "الوقت مكتوب في الشاتات والصور. التهديد قبل الهروب، والهروب قبل الفويس."
+    },
+    {
+      "id": "D2",
+      "chapter": 4,
+      "title": "القرار النهائي: هتعمل إيه بالأدلة؟",
+      "type": "finale",
+      "options": [
+        "أبعت حزمة الأدلة لزياد وهيئة الدواء",
+        "أروح أواجه هاني لوحدي في الفرع",
+        "أتهم مصطفى إنه ورا اختفائها",
+        "أسلّم الموبايل للبوليس من غير حزمة الأدلة"
+      ],
+      "correct": [
+        "أبعت حزمة الأدلة لزياد وهيئة الدواء"
+      ],
+      "hint": "الدليل الكامل مع الصحفي والجهة الرسمية هو اللي يحمي سلمى. المواجهة لوحدك خطر، والاتهام من غير دليل بيضيع القضية."
+    }
+  ],
+  "endings": [
+    {
+      "id": "A",
+      "title": "الحقيقة الكاملة",
+      "condition": "حزمة الأدلة كاملة (8) + اختيار D2 الصحيح",
+      "text": "طارق بيبعت حزمة الأدلة لزياد وهيئة الدواء. التحقيق بيبدأ، والفرع بيتقفل للجرد. هاني بيتوقف عن الشغل وبيتحقق معاه. سلمى بتطلع من عند نور وهي آمنة، وبترجع لحضن ماما هدى ومصطفى. زياد بينشر التحقيق، والأدوية المنتهية بتتسحب من السوق. سلمى لسه خايفة، بس مش لوحدها تاني."
+    },
+    {
+      "id": "B",
+      "title": "لقيناها… بس مش كاملة",
+      "condition": "سلمى اتلاقت (عن طريق نور) لكن حزمة الأدلة ناقصة",
+      "text": "طارق بيوصل لسلمى عن طريق نور، وهي بخير. بس من غير الأدلة الكاملة، هاني بينكر كل حاجة، والفرع بيكمل شغله عادي. سلمى آمنة، لكن القضية لسه مفتوحة، وهاني لسه في مكانه. الحقيقة محتاجة دليل أقوى."
+    },
+    {
+      "id": "C",
+      "title": "خطوة غلط",
+      "condition": "مواجهة هاني لوحده / اتهام مصطفى / تسليم الموبايل من غير الأدلة",
+      "text": "الخطوة الغلط بتضيع الفرصة: هاني بيمسح اللي يقدر عليه، أو مصطفى بيتظلم، أو الموبايل بيتسلم من غير ما حد يفهم الأدلة اللي فيه. سلمى لسه مستخبية، والخطر لسه موجود. بس لسه فيه فرصة: حاول تاني من الفصل الرابع، والأدلة اللي جمعتها لسه معاك."
+    }
+  ]
+}
