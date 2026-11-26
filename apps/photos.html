@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Photos</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .cell { aspect-ratio: 1; cursor: pointer; position: relative; overflow: hidden; background: #1c1c1e; border: none; padding: 0; }
+  .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cell .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+  .viewer { position: fixed; inset: 0; background: #000; display: none; flex-direction: column; z-index: 10; }
+  .viewer.active { display: flex; }
+  .viewer .v-head { display: flex; align-items: center; gap: 10px; padding: 52px 12px 10px; background: #1c1c1e; }
+  .viewer .v-head .back { background: none; border: none; color: #0a84ff; font-size: 28px; cursor: pointer; min-width: 44px; min-height: 44px; }
+  .viewer .v-head .t { flex: 1; font-size: 15px; color: #aaa; }
+  .viewer img { width: 100%; max-height: 55vh; object-fit: contain; background: #000; }
+  .viewer .v-cap { padding: 16px; line-height: 1.7; overflow-y: auto; }
+  .viewer .v-cap h2 { font-size: 18px; margin-bottom: 6px; }
+  .viewer .v-cap p { font-size: 15px; color: #ddd; margin-bottom: 6px; }
+  .viewer .v-cap .note { color: #ffd60a; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Photos</h1></div>
+  <div class="app-body"><div class="grid" id="grid"><div class="loading">جارٍ التحميل…</div></div></div>
+  <div class="viewer" id="viewer">
+    <div class="v-head"><button class="back" id="btn-back">›</button><span class="t" id="v-date"></span></div>
+    <img id="v-img" alt="">
+    <div class="v-cap" id="v-cap"></div>
+  </div>
+</div>
+<script src="app-common.js"></script>
+<script>
+// Deep link: opened as apps/photos.html?photo=<photo id> (e.g. from a photo
+// attachment in Messages) — the viewer opens straight on that photo.
+// No parameter (normal home-screen open) falls back to the grid.
+var deepLinkPhoto = null;
+try { deepLinkPhoto = new URLSearchParams(window.location.search).get('photo'); } catch (e) { deepLinkPhoto = null; }
+window.onStory = function () {
+  renderGrid();
+  if (deepLinkPhoto) {
+    var p = (STORY.photos || []).find(function (x) { return x.id === deepLinkPhoto; });
+    deepLinkPhoto = null;
+    if (p) openPhoto(p);
+  }
+};
+window.onUpdate = function () { renderGrid(); };
+function renderGrid() {
+  var grid = $('#grid');
+  // optional:true entries have ABSENT files (profile_hani, profile_ziad):
+  // hide them entirely — never a broken tile.
+  var photos = (STORY.photos || []).filter(function (p) { return !p.optional; });
+  if (!photos.length) { grid.innerHTML = '<div class="empty">لا توجد صور.</div>'; return; }
+  grid.innerHTML = photos.map(function (p) {
+    return '<button class="cell" data-photo="' + esc(p.id) + '">' +
+      '<img src="../story/assets/photos/' + esc(p.file) + '" alt="" loading="lazy" onerror="this.closest(\'.cell\').remove();">' +
+      '<span class="ph" style="display:none">🖼️</span></button>';
+  }).join('');
+  grid.querySelectorAll('[data-photo]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var p = (STORY.photos || []).find(function (x) { return x.id === b.getAttribute('data-photo'); });
+      if (p) openPhoto(p);
+    });
+  });
+}
+function openPhoto(p) {
+  report('photo_opened', p.id);
+  $('#v-date').textContent = (p.taken || '') + (p.medium ? ' · ' + p.medium : '');
+  var img = $('#v-img');
+  img.src = '../story/assets/photos/' + p.file;
+  img.onerror = function () { img.style.display = 'none'; };
+  img.style.display = '';
+  var clue = clueFor(p.id);
+  $('#v-cap').innerHTML = '<h2>' + esc(p.caption || '') + '</h2>' +
+    (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') +
+    pinButtonHtml(clue);
+  wirePin($('#v-cap'));
+  $('#viewer').classList.add('active');
+}
+$('#btn-back').addEventListener('click', function () { $('#viewer').classList.remove('active'); });
+ready('photos');
+</script>
+</body>
+</html>

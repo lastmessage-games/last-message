@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Messages</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .chat-view { position: fixed; inset: 0; background: #000; display: none; flex-direction: column; z-index: 10; }
+  .chat-view.active { display: flex; }
+  .chat-head { display: flex; align-items: center; gap: 10px; padding: 52px 12px 10px; background: #1c1c1e; flex-shrink: 0; }
+  .chat-head .back { background: none; border: none; color: #0a84ff; font-size: 28px; cursor: pointer; min-width: 44px; min-height: 44px; }
+  .chat-head .name { flex: 1; font-size: 17px; font-weight: 600; }
+  .chat-msgs { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .msg { max-width: 78%; padding: 10px 14px; border-radius: 18px; font-size: 16px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+  .msg.recv { background: #2c2c2e; align-self: flex-start; border-bottom-right-radius: 4px; }
+  .msg.sent { background: #0a84ff; align-self: flex-end; border-bottom-left-radius: 4px; }
+  .msg .m-time { display: block; font-size: 11px; color: #aaa; margin-top: 4px; }
+  .msg.sent .m-time { color: rgba(255,255,255,.75); }
+  .msg .att { display: block; margin-top: 6px; padding: 10px; border-radius: 10px; background: rgba(255,255,255,.12); cursor: pointer; font-size: 14px; min-height: 44px; }
+  .reply-box { padding: 10px 14px 28px; background: #1c1c1e; flex-shrink: 0; }
+  .reply-opt {
+    display: block; width: 100%; text-align: start; min-height: 48px; margin-bottom: 8px;
+    padding: 12px 14px; border: 1px solid #0a84ff; border-radius: 14px;
+    background: rgba(10,132,255,.15); color: #fff; font-size: 16px; cursor: pointer;
+  }
+  .reply-note { color: #8e8e93; font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Messages</h1></div>
+  <div class="app-body"><div id="list"><div class="loading">جارٍ التحميل…</div></div></div>
+  <div class="chat-view" id="chat-view">
+    <div class="chat-head">
+      <button class="back" id="btn-back">›</button>
+      <div class="avatar" id="chat-avatar" style="background:#0a84ff">👤</div>
+      <div class="name" id="chat-name"></div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs"></div>
+    <div class="reply-box" id="reply-box"></div>
+  </div>
+</div>
+<script src="app-common.js"></script>
+<script>
+var currentChat = null;
+function allMessages(chat) {
+  var base = (chat.messages || []).slice();
+  var inj = (SAVE && SAVE.injected && SAVE.injected[chat.id]) || [];
+  return base.concat(inj);
+}
+window.onStory = function () { renderList(); };
+window.onUpdate = function (d) {
+  renderList();
+  if (currentChat && d.chatId === currentChat.id) renderChat(currentChat);
+};
+function renderList() {
+  var list = $('#list');
+  var chats = (STORY.chats || []).filter(function (c) { return c.app === 'messages'; });
+  if (!chats.length) { list.innerHTML = '<div class="empty">لا توجد محادثات.</div>'; return; }
+  list.innerHTML = chats.map(function (c) {
+    var ch = charById(c.with);
+    var msgs = allMessages(c);
+    var last = msgs[msgs.length - 1];
+    var isGroup = c.id.indexOf('group') !== -1 || c.id.indexOf('family') !== -1;
+    var avHtml = isGroup ? '👥' : avatarInner(ch);
+    return '<button class="row-item" data-chat="' + esc(c.id) + '">' +
+      '<div class="avatar" style="background:' + esc(ch && ch.color || '#0a84ff') + '">' + avHtml + '</div>' +
+      '<div class="row-main"><div class="row-title">' + esc(c.title || (ch && ch.name) || c.with) + '</div>' +
+      '<div class="row-sub">' + esc(last ? last.text : '') + '</div></div>' +
+      '<span class="row-time">' + esc(last ? (last.time || '') : '') + '</span></button>';
+  }).join('');
+  list.querySelectorAll('[data-chat]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var chat = (STORY.chats || []).find(function (c) { return c.id === b.getAttribute('data-chat'); });
+      if (chat) { currentChat = chat; report('chat_opened', chat.id); renderChat(chat); $('#chat-view').classList.add('active'); }
+    });
+  });
+}
+function renderChat(chat) {
+  var ch = charById(chat.with);
+  $('#chat-name').textContent = chat.title || (ch && ch.name) || chat.with;
+  var av = $('#chat-avatar');
+  var isGroup = chat.id.indexOf('group') !== -1 || chat.id.indexOf('family') !== -1;
+  av.innerHTML = isGroup ? '👥' : avatarInner(ch);
+  av.style.background = (ch && ch.color) || '#0a84ff';
+  var box = $('#chat-msgs');
+  box.innerHTML = allMessages(chat).map(function (m) {
+    var sent = m.from === 'me';
+    var att = '';
+    if (m.attachment) {
+      var label = m.attachment.type === 'photo' ? '🖼️ صورة — افتحها في Photos' : '🎙️ تسجيل صوتي — افتحه في Voice Memos';
+      var target = m.attachment.type === 'photo' ? 'photos' : 'music';
+      // Photo attachments carry a FILENAME (ref), not a photo id: resolve it
+      // to the photo id so Photos can deep-link straight to that photo.
+      var photoId = '';
+      if (m.attachment.type === 'photo') {
+        var ph = (STORY.photos || []).find(function (p) { return p.file === m.attachment.ref; });
+        if (ph) photoId = ph.id;
+      }
+      att = '<span class="att" data-app="' + target + '"' + (photoId ? ' data-photo="' + esc(photoId) + '"' : '') + '>' + esc(label) + '</span>';
+    }
+    // Link-only discovery: a site URL *or site name* inside a message
+    // becomes a tappable link (real story has no literal URLs in chats).
+    // Also matches the first part of a dashed site name ("هيئة الدواء
+    // المصرية" from "هيئة الدواء المصرية — البلاغات").
+    var site = (STORY.sites || []).find(function (s) {
+      var firstPart = (s.name || '').indexOf('—') !== -1 ? (s.name || '').split('—')[0].trim() : '';
+      return (s.url && m.text.indexOf(s.url) !== -1) || (s.name && m.text.indexOf(s.name) !== -1) || (firstPart && m.text.indexOf(firstPart) !== -1);
+    });
+    if (site) att += '<span class="att" data-site="' + esc(site.id) + '">🔗 ' + esc(site.url) + ' — افتح في Safari</span>';
+    return '<div class="msg ' + (sent ? 'sent' : 'recv') + '">' + esc(m.text) + att +
+      '<span class="m-time">' + esc(m.time || '') + (m.date ? ' · ' + esc(m.date) : '') + '</span></div>';
+  }).join('');
+  box.querySelectorAll('.att').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (a.getAttribute('data-site')) openSite(a.getAttribute('data-site'));
+      else if (a.getAttribute('data-photo')) openApp(a.getAttribute('data-app'), { photo: a.getAttribute('data-photo') });
+      else openApp(a.getAttribute('data-app'));
+    });
+  });
+  box.scrollTop = box.scrollHeight;
+  renderReplies(chat);
+}
+function renderReplies(chat) {
+  var box = $('#reply-box');
+  // Pin any clue sourced from this chat (several pack clues live here).
+  var chatClues = cluesFor(chat.id).filter(function (c) { return !isPinned(c.id); });
+  var pinHtml = chatClues.length
+    ? '<div style="margin-bottom:10px">' + pinButtonsHtml(chatClues) + '</div>' : '';
+  var choices = chat.replyChoices || [];
+  if (!choices.length) {
+    box.innerHTML = pinHtml + '<div class="reply-note">لا يمكنك الرد — هذه محادثة للقراءة فقط.</div>';
+    wirePin(box);
+    return;
+  }
+  var picked = SAVE && SAVE.replyChoices && SAVE.replyChoices[chat.id];
+  if (picked) {
+    var c = choices.find(function (x) { return x.id === picked; });
+    box.innerHTML = pinHtml + '<div class="reply-note">اخترت: ' + esc(c ? c.text : picked) + '</div>';
+    wirePin(box);
+    return;
+  }
+  box.innerHTML = pinHtml + choices.map(function (c) {
+    return '<button class="reply-opt" data-choice="' + esc(c.id) + '">' + esc(c.text) + '</button>';
+  }).join('');
+  wirePin(box);
+  box.querySelectorAll('.reply-opt').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var c = choices.find(function (x) { return x.id === b.getAttribute('data-choice'); });
+      if (!c) return;
+      send({ type: 'reply', chatId: chat.id, choiceId: c.id });
+      var box2 = $('#chat-msgs');
+      box2.insertAdjacentHTML('beforeend', '<div class="msg sent">' + esc(c.text) + '</div>');
+      if (c.response) {
+        setTimeout(function () {
+          box2.insertAdjacentHTML('beforeend', '<div class="msg recv">' + esc(c.response.text) + '</div>');
+          box2.scrollTop = box2.scrollHeight;
+        }, 1500);
+      }
+      box2.scrollTop = box2.scrollHeight;
+      renderReplies(chat);
+    });
+  });
+}
+$('#btn-back').addEventListener('click', function () { $('#chat-view').classList.remove('active'); currentChat = null; });
+ready('messages');
+</script>
+</body>
+</html>

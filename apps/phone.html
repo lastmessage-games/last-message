@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Phone</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .dial { padding: 20px; text-align: center; }
+  .dial .num { font-size: 32px; min-height: 44px; letter-spacing: 4px; direction: ltr; }
+  .pad { display: grid; grid-template-columns: repeat(3, 76px); gap: 12px; justify-content: center; margin: 16px 0; }
+  .pad button {
+    width: 76px; height: 76px; border-radius: 50%; border: none; background: #1c1c1e;
+    color: #fff; font-size: 26px; cursor: pointer;
+  }
+  .pad button:active { background: #3a3a3c; }
+  .call-btn { width: 76px; height: 76px; border-radius: 50%; border: none; background: #30d158; font-size: 28px; cursor: pointer; }
+  .p-note { color: #8e8e93; font-size: 14px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Phone</h1></div>
+  <div class="app-body"><div class="dial">
+    <div class="num" id="num"></div>
+    <div class="pad" id="pad"></div>
+    <button class="call-btn" id="call">📞</button>
+    <p class="p-note" id="note" style="margin-top:16px">لا توجد مكالمات حديثة.<br>التليفون من غير شريحة — الاتصال غير متاح.</p>
+  </div></div>
+</div>
+<script src="app-common.js"></script>
+<script>
+var num = '';
+var pad = $('#pad');
+['1','2','3','4','5','6','7','8','9','*','0','#'].forEach(function (k) {
+  var b = document.createElement('button');
+  b.textContent = k;
+  b.addEventListener('click', function () { if (num.length < 15) { num += k; $('#num').textContent = num; } });
+  pad.appendChild(b);
+});
+$('#call').addEventListener('click', function () {
+  $('#note').textContent = num ? 'تعذّر الاتصال بـ ' + num + ' — لا توجد شريحة في الهاتف.' : 'اكتب رقم الأول — بس الاتصال مش هيشتغل من غير شريحة.';
+});
+window.onStory = function () {};
+window.onUpdate = function () {};
+ready('phone');
+</script>
+</body>
+</html>

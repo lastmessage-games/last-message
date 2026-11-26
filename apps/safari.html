@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Safari</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .safari { background: #f2f2f7; color: #111; }
+  .safari .app-head { background: #fff; color: #111; border-bottom: 1px solid #ddd; }
+  .safari .app-head h1 { color: #111; }
+  .start { padding: 20px 16px; }
+  .start h2 { font-size: 18px; margin-bottom: 6px; color: #111; }
+  .start p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 16px; }
+  .site-row {
+    display: block; width: 100%; text-align: start; min-height: 56px; padding: 12px 14px;
+    margin-bottom: 8px; border: 1px solid #ddd; border-radius: 12px; background: #fff;
+    color: #111; font-size: 15px; cursor: pointer;
+  }
+  .site-row b { display: block; font-size: 16px; }
+  .site-row span { color: #0a84ff; font-size: 13px; }
+  .page { padding: 20px 16px; background: #fff; min-height: 100%; color: #111; }
+  .page h2 { font-size: 20px; margin-bottom: 4px; }
+  .page .url { color: #0a84ff; font-size: 13px; margin-bottom: 14px; word-break: break-all; }
+  .page p { font-size: 16px; line-height: 1.8; white-space: pre-wrap; }
+  .page .plink { display: block; margin-top: 12px; color: #0a84ff; font-size: 15px; cursor: pointer; background: none; border: none; text-align: start; padding: 8px 0; min-height: 44px; }
+  .search-row { display: flex; gap: 8px; margin: 12px 0 4px; }
+  .search-row input {
+    flex: 1; min-height: 44px; padding: 10px 14px; border: 1px solid #ccc; border-radius: 22px;
+    font-size: 16px; font-family: inherit;
+  }
+  .search-row button {
+    min-height: 44px; min-width: 64px; padding: 8px 16px; border: none; border-radius: 22px;
+    background: #0a84ff; color: #fff; font-size: 15px; cursor: pointer;
+  }
+  #search-msg { color: #666; font-size: 14px; min-height: 20px; margin-bottom: 8px; }
+  .page .pin-btn { margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="app safari">
+  <div class="app-head"><button class="back" id="btn-home" style="display:none">› الرئيسية</button><h1>Safari</h1></div>
+  <div class="app-body" id="body"><div class="loading">جارٍ التحميل…</div></div>
+</div>
+<script src="app-common.js"></script>
+<script>
+/* Link-only discovery: sites open ONLY from links in Messages/Mail
+   (parent sends {type:'update', siteId, path}) or from the visited list.
+   Bookmarks start empty. No search, no external navigation. */
+var currentSite = null, currentPath = '/';
+window.onStory = function () { renderStart(); };
+window.onUpdate = function (d) {
+  if (d.siteId) { currentSite = d.siteId; currentPath = d.path || '/'; renderPage(); }
+  else renderStart();
+};
+function visitedSites() {
+  var ids = (SAVE && SAVE.visitedSites) || [];
+  return (STORY.sites || []).filter(function (s) { return ids.indexOf(s.id) !== -1; });
+}
+function renderStart() {
+  $('#btn-home').style.display = 'none';
+  var sites = visitedSites();
+  var html = '<div class="start"><h2>صفحة البداية</h2>' +
+    '<p>لا توجد إشارات مرجعية. المواقع بتظهر هنا بس بعد ما تفتحها من لينك في رسالة أو إيميل، أو من البحث.</p>' +
+    '<div class="search-row"><input id="search-q" type="text" placeholder="ابحث…" aria-label="بحث">' +
+    '<button id="search-go">بحث</button></div>' +
+    '<div id="search-msg"></div>';
+  if (!sites.length) {
+    html += '<p>لسه ما زُرتش أي موقع من التليفون ده.</p>';
+  } else {
+    html += '<h2>زُرتها قبل كده</h2>' + sites.map(function (s) {
+      return '<button class="site-row" data-site="' + esc(s.id) + '"><b>' + esc(s.name) + '</b><span>' + esc(s.url) + '</span></button>';
+    }).join('');
+  }
+  html += '</div>';
+  $('#body').innerHTML = html;
+  $('#body').querySelectorAll('[data-site]').forEach(function (b) {
+    b.addEventListener('click', function () { currentSite = b.getAttribute('data-site'); currentPath = '/'; renderPage(); });
+  });
+  wireSearch($('#body'));
+}
+function wireSearch(root) {
+  var go = root.querySelector('#search-go');
+  var input = root.querySelector('#search-q');
+  if (!go || !input) return;
+  function run() { doSearch(input.value.trim()); }
+  go.addEventListener('click', run);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') run(); });
+}
+/* In-world search only: matches the query against the search site's own
+   results pages. Never the web, never anything outside the story. */
+function doSearch(q) {
+  var searchSite = (STORY.sites || []).find(function (s) { return s.id === 'site_search'; });
+  var msg = $('#search-msg');
+  if (!q) { if (msg) msg.textContent = 'اكتب كلمة الأول.'; return; }
+  var pages = (searchSite && searchSite.pages) || [];
+  var hit = null;
+  pages.forEach(function (p) {
+    var m = /results\?q=(.*)/.exec(p.path || '');
+    var qq = m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+    if (qq && (qq === q || qq.indexOf(q) !== -1 || q.indexOf(qq) !== -1)) hit = p;
+    if (!hit && (p.title || '').indexOf(q) !== -1 && p.path !== '/') hit = p;
+  });
+  if (hit) {
+    currentSite = 'site_search'; currentPath = hit.path; renderPage();
+  } else if (msg) {
+    msg.textContent = 'لا توجد نتائج مطابقة داخل هذا العالم.';
+  } else {
+    renderStart();
+    var m2 = $('#search-msg');
+    if (m2) m2.textContent = 'لا توجد نتائج مطابقة داخل هذا العالم.';
+  }
+}
+function renderPage() {
+  var site = (STORY.sites || []).find(function (s) { return s.id === currentSite; });
+  if (!site) { renderStart(); return; }
+  report('site_opened', site.id + ':' + currentPath);
+  var page = (site.pages || []).find(function (p) { return p.path === currentPath; }) || site.pages[0] || { title: site.name, body: '' };
+  $('#btn-home').style.display = '';
+  var others = (site.pages || []).filter(function (p) { return p.path !== page.path; });
+  // Pin clues sourced from this site (e.g. site_news, site_inspectorate).
+  var siteClues = cluesFor(site.id).filter(function (c) { return !isPinned(c.id); });
+  // On results pages, make the listed sites tappable (in-world discovery).
+  var linked = (STORY.sites || []).filter(function (s) {
+    return s.id !== site.id && ((page.body || '').indexOf(s.name) !== -1 || (page.body || '').indexOf(s.url) !== -1);
+  });
+  var searchBox = (site.id === 'site_search' && page.path === '/')
+    ? '<div class="search-row"><input id="search-q" type="text" placeholder="ابحث…" aria-label="بحث"><button id="search-go">بحث</button></div><div id="search-msg"></div>' : '';
+  $('#body').innerHTML = '<div class="page"><h2>' + esc(page.title) + '</h2>' +
+    '<div class="url">' + esc(site.url) + esc(page.path) + '</div>' +
+    '<p>' + esc(page.body) + '</p>' + searchBox +
+    linked.map(function (s) {
+      return '<button class="plink" data-site="' + esc(s.id) + '">← ' + esc(s.name) + ' — ' + esc(s.url) + '</button>';
+    }).join('') +
+    others.map(function (p) {
+      return '<button class="plink" data-path="' + esc(p.path) + '">← ' + esc(p.title) + '</button>';
+    }).join('') +
+    (siteClues.length ? '<div style="margin-top:14px">' + pinButtonsHtml(siteClues) + '</div>' : '') + '</div>';
+  wirePin($('#body'));
+  wireSearch($('#body'));
+  $('#body').querySelectorAll('[data-path]').forEach(function (b) {
+    b.addEventListener('click', function () { currentPath = b.getAttribute('data-path'); renderPage(); });
+  });
+  $('#body').querySelectorAll('[data-site]').forEach(function (b) {
+    b.addEventListener('click', function () { currentSite = b.getAttribute('data-site'); currentPath = '/'; renderPage(); });
+  });
+}
+$('#btn-home').addEventListener('click', function () { currentSite = null; renderStart(); });
+ready('safari');
+</script>
+</body>
+</html>

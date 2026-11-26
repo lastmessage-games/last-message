@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Weather</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .w { padding: 24px 20px; text-align: center; }
+  .w .city { font-size: 28px; font-weight: 700; }
+  .w .temp { font-size: 84px; font-weight: 200; margin: 8px 0; }
+  .w .cond { font-size: 18px; color: #ddd; }
+  .w .hl { font-size: 15px; color: #8e8e93; margin-top: 6px; }
+  .w .hour { display: flex; justify-content: space-between; padding: 12px 4px; border-bottom: 1px solid #2c2c2e; font-size: 16px; }
+  .w .note { color: #8e8e93; font-size: 13px; margin-top: 16px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Weather</h1></div>
+  <div class="app-body"><div class="w" id="w"><div class="loading">جارٍ التحميل…</div></div></div>
+</div>
+<script src="app-common.js"></script>
+<script>
+/* Static story weather only. No API, no geolocation, no fetch.
+   The real story has no weather data: show an honest no-data state. */
+window.onStory = function () {
+  var w = (STORY.meta && STORY.meta.weather) || null;
+  if (!w) {
+    $('#w').innerHTML = '<div class="empty" style="color:#8e8e93;padding:40px 20px;line-height:1.7">' +
+      'لا توجد بيانات طقس محفوظة على هذا الهاتف.<br>التليفون من غير إنترنت.</div>';
+    return;
+  }
+  var hours = w.hourly || [];
+  $('#w').innerHTML =
+    '<div class="city">' + esc(w.city || 'القاهرة') + '</div>' +
+    '<div class="temp">' + esc(w.temp != null ? w.temp : '—') + '°</div>' +
+    '<div class="cond">' + esc(w.conditionAr || w.condition || '') + '</div>' +
+    '<div class="hl">العظمى ' + esc(w.high != null ? w.high : '—') + '° · الصغرى ' + esc(w.low != null ? w.low : '—') + '°</div>' +
+    (hours.length ? '<div style="margin-top:20px;text-align:start">' + hours.map(function (h) {
+      return '<div class="hour"><span>' + esc(h.time) + '</span><span>' + esc(h.temp) + '°</span></div>';
+    }).join('') + '</div>' : '') +
+    '<div class="note">طقس مسجّل من يوم الحادثة — مش طقس حي. التليفون من غير إنترنت.</div>';
+};
+window.onUpdate = function () {};
+ready('weather');
+</script>
+</body>
+</html>

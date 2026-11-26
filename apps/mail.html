@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mail</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .folders { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; flex-shrink: 0; }
+  .folder-btn {
+    flex-shrink: 0; min-height: 40px; padding: 8px 16px; border-radius: 20px;
+    border: 1px solid #3a3a3c; background: #1c1c1e; color: #fff; font-size: 14px; cursor: pointer;
+  }
+  .folder-btn.sel { background: #0a84ff; border-color: #0a84ff; }
+  .reader { position: fixed; inset: 0; background: #000; display: none; flex-direction: column; z-index: 10; }
+  .reader.active { display: flex; }
+  .reader .r-head { display: flex; align-items: center; gap: 10px; padding: 52px 12px 10px; background: #1c1c1e; }
+  .reader .r-head .back { background: none; border: none; color: #0a84ff; font-size: 28px; cursor: pointer; min-width: 44px; min-height: 44px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Mail</h1></div>
+  <div class="folders" id="folders"></div>
+  <div class="app-body"><div id="list"><div class="loading">جارٍ التحميل…</div></div></div>
+  <div class="reader" id="reader">
+    <div class="r-head"><button class="back" id="btn-back">›</button><span class="t" id="r-subject" style="flex:1;font-weight:600"></span></div>
+    <div class="app-body"><div class="detail" id="r-body"></div></div>
+  </div>
+</div>
+<script src="app-common.js"></script>
+<script>
+var currentFolder = 'Inbox';
+window.onStory = function () { renderFolders(); renderList(); };
+window.onUpdate = function () { renderList(); };
+function renderFolders() {
+  var folders = [];
+  (STORY.mails || []).forEach(function (m) { if (folders.indexOf(m.folder || 'Inbox') === -1) folders.push(m.folder || 'Inbox'); });
+  if (!folders.length) folders = ['Inbox'];
+  if (folders.indexOf(currentFolder) === -1) currentFolder = folders[0];
+  $('#folders').innerHTML = folders.map(function (f) {
+    return '<button class="folder-btn' + (f === currentFolder ? ' sel' : '') + '" data-f="' + esc(f) + '">' + esc(f) + '</button>';
+  }).join('');
+  $('#folders').querySelectorAll('.folder-btn').forEach(function (b) {
+    b.addEventListener('click', function () { currentFolder = b.getAttribute('data-f'); renderFolders(); renderList(); });
+  });
+}
+function renderList() {
+  var list = $('#list');
+  var mails = (STORY.mails || []).filter(function (m) { return (m.folder || 'Inbox') === currentFolder; });
+  if (!mails.length) { list.innerHTML = '<div class="empty">لا توجد رسائل في هذا المجلد.</div>'; return; }
+  list.innerHTML = mails.map(function (m) {
+    return '<button class="row-item" data-mail="' + esc(m.id) + '">' +
+      '<div class="avatar" style="background:#0a84ff">✉️</div>' +
+      '<div class="row-main"><div class="row-title">' + esc(m.subject || '') + '</div>' +
+      '<div class="row-sub">' + esc(charName(m.from)) + ' — ' + esc((m.body || '').slice(0, 80)) + '</div></div>' +
+      '<span class="row-time">' + esc(m.date || m.time || '') + '</span></button>';
+  }).join('');
+  list.querySelectorAll('[data-mail]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var m = (STORY.mails || []).find(function (x) { return x.id === b.getAttribute('data-mail'); });
+      if (m) openMail(m);
+    });
+  });
+}
+function openMail(m) {
+  report('mail_opened', m.id);
+  $('#r-subject').textContent = m.subject || '';
+  var clue = clueFor(m.id);
+  var att = '';
+  if (m.attachment) {
+    att = '<p>📎 مرفق: ' + esc(m.attachment.type === 'photo' ? 'صورة' : m.attachment.type) + ' — ' + esc(m.attachment.ref || '') + '</p>';
+  }
+  // Link-only discovery: a site URL *or site name* inside a mail
+  // becomes a tappable link (e.g. mail_ziad mentions the news site).
+  // Also matches the first part of a dashed site name ("هيئة الدواء
+  // المصرية" from "هيئة الدواء المصرية — البلاغات"), so mail_inspectorate
+  // links to the inspectorate site.
+  var site = (STORY.sites || []).find(function (s) {
+    var body = m.body || '';
+    var firstPart = (s.name || '').indexOf('—') !== -1 ? (s.name || '').split('—')[0].trim() : '';
+    return (s.url && body.indexOf(s.url) !== -1) || (s.name && body.indexOf(s.name) !== -1) || (firstPart && body.indexOf(firstPart) !== -1);
+  });
+  if (site) att += '<p><button class="pin-btn" id="mail-site-link" data-site="' + esc(site.id) + '">🔗 ' + esc(site.url) + ' — افتح في Safari</button></p>';
+  $('#r-body').innerHTML = '<h2>' + esc(m.subject || '') + '</h2>' +
+    '<div class="meta">من: ' + esc(charName(m.from)) + '<br>إلى: ' + esc(charName(m.to)) + '<br>' + esc(m.date || '') + ' ' + esc(m.time || '') + '</div>' +
+    '<div>' + esc(m.body || '') + '</div>' + att + pinButtonHtml(clue);
+  wirePin($('#r-body'));
+  var sl = document.getElementById('mail-site-link');
+  if (sl) sl.addEventListener('click', function () { openSite(sl.getAttribute('data-site')); });
+  // Link-style site references inside mail body are plain text; site links
+  // arrive as tappable rows when the story defines them in sites[]. See Safari.
+  $('#reader').classList.add('active');
+}
+$('#btn-back').addEventListener('click', function () { $('#reader').classList.remove('active'); });
+ready('mail');
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Files</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .reader { position: fixed; inset: 0; background: #000; display: none; flex-direction: column; z-index: 10; }
+  .reader.active { display: flex; }
+  .reader .r-head { display: flex; align-items: center; gap: 10px; padding: 52px 12px 10px; background: #1c1c1e; }
+  .reader .r-head .back { background: none; border: none; color: #0a84ff; font-size: 28px; cursor: pointer; min-width: 44px; min-height: 44px; }
+  .folder-sec { padding: 16px 16px 6px; color: #8e8e93; font-size: 14px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Files</h1></div>
+  <div class="app-body"><div id="list"><div class="loading">جارٍ التحميل…</div></div></div>
+  <div class="reader" id="reader">
+    <div class="r-head"><button class="back" id="btn-back">›</button><span style="flex:1;font-weight:600" id="r-title"></span></div>
+    <div class="app-body"><div class="detail" id="r-body"></div></div>
+  </div>
+</div>
+<script src="app-common.js"></script>
+<script>
+window.onStory = function () { renderList(); };
+window.onUpdate = function () { renderList(); };
+function renderList() {
+  var list = $('#list');
+  var files = STORY.files || [];
+  if (!files.length) { list.innerHTML = '<div class="empty">لا توجد ملفات.</div>'; return; }
+  var folders = [];
+  files.forEach(function (f) { if (folders.indexOf(f.folder || 'عام') === -1) folders.push(f.folder || 'عام'); });
+  var html = '';
+  folders.forEach(function (fo) {
+    html += '<div class="folder-sec">📁 ' + esc(fo) + '</div>';
+    files.filter(function (f) { return (f.folder || 'عام') === fo; }).forEach(function (f) {
+      var icon = f.kind === 'image' ? '🖼️' : f.kind === 'pdf' ? '📄' : f.kind === 'audio' ? '🎙️' : '📝';
+      html += '<button class="row-item" data-file="' + esc(f.id) + '">' +
+        '<div class="avatar" style="background:#1c1c1e">' + icon + '</div>' +
+        '<div class="row-main"><div class="row-title">' + esc(f.name) + '</div>' +
+        '<div class="row-sub">' + esc(f.kind || '') + '</div></div><span class="row-time">›</span></button>';
+    });
+  });
+  list.innerHTML = html;
+  list.querySelectorAll('[data-file]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = (STORY.files || []).find(function (x) { return x.id === b.getAttribute('data-file'); });
+      if (f) openFile(f);
+    });
+  });
+}
+function openFile(f) {
+  report('file_opened', f.id);
+  $('#r-title').textContent = f.name || '';
+  var clue = clueFor(f.id);
+  $('#r-body').innerHTML = '<h2>' + esc(f.name || '') + '</h2>' +
+    '<div class="meta">' + esc(f.folder || '') + ' · ' + esc(f.kind || '') + '</div>' +
+    '<div>' + esc(f.body || '') + '</div>' + pinButtonHtml(clue);
+  wirePin($('#r-body'));
+  $('#reader').classList.add('active');
+}
+$('#btn-back').addEventListener('click', function () { $('#reader').classList.remove('active'); });
+ready('files');
+</script>
+</body>
+</html>

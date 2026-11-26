@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Notes</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .reader { position: fixed; inset: 0; background: #000; display: none; flex-direction: column; z-index: 10; }
+  .reader.active { display: flex; }
+  .reader .r-head { display: flex; align-items: center; gap: 10px; padding: 52px 12px 10px; background: #1c1c1e; }
+  .reader .r-head .back { background: none; border: none; color: #0a84ff; font-size: 28px; cursor: pointer; min-width: 44px; min-height: 44px; }
+  .goal-tag { color: #ffd60a; font-size: 12px; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Notes</h1></div>
+  <div class="app-body"><div id="list"><div class="loading">جارٍ التحميل…</div></div></div>
+  <div class="reader" id="reader">
+    <div class="r-head"><button class="back" id="btn-back">›</button><span style="flex:1;font-weight:600" id="r-title"></span></div>
+    <div class="app-body"><div class="detail" id="r-body"></div></div>
+  </div>
+</div>
+<script src="app-common.js"></script>
+<script>
+window.onStory = function () { renderList(); };
+window.onUpdate = function () { renderList(); };
+function renderList() {
+  var list = $('#list');
+  var notes = STORY.notes || [];
+  if (!notes.length) { list.innerHTML = '<div class="empty">لا توجد ملاحظات.</div>'; return; }
+  list.innerHTML = notes.map(function (n) {
+    return '<button class="row-item" data-note="' + esc(n.id) + '">' +
+      '<div class="avatar" style="background:#ffd60a;color:#000">📝</div>' +
+      '<div class="row-main"><div class="row-title">' + esc(n.title || '') + '</div>' +
+      '<div class="row-sub">' + esc((n.body || '').slice(0, 80)) + '</div></div>' +
+      '<span class="row-time">' + esc(n.date || '') + '</span></button>';
+  }).join('');
+  list.querySelectorAll('[data-note]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var n = (STORY.notes || []).find(function (x) { return x.id === b.getAttribute('data-note'); });
+      if (n) openNote(n);
+    });
+  });
+}
+function openNote(n) {
+  report('note_opened', n.id);
+  $('#r-title').textContent = n.title || '';
+  var clue = clueFor(n.id);
+  $('#r-body').innerHTML = '<h2>' + esc(n.title || '') + '</h2>' +
+    '<div class="meta">' + esc(n.date || '') + '</div><div>' + esc(n.body || '') + '</div>' + pinButtonHtml(clue);
+  wirePin($('#r-body'));
+  $('#reader').classList.add('active');
+}
+$('#btn-back').addEventListener('click', function () { $('#reader').classList.remove('active'); });
+ready('notes');
+</script>
+</body>
+</html>

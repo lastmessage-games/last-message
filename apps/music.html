@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Voice Memos</title>
+<link rel="stylesheet" href="app-common.css">
+<style>
+  .memo { padding: 16px; border-bottom: 1px solid #2c2c2e; }
+  .memo h2 { font-size: 17px; margin-bottom: 4px; }
+  .memo .meta { color: #8e8e93; font-size: 13px; margin-bottom: 10px; }
+  .memo audio { width: 100%; min-height: 44px; }
+  .memo .tr { margin-top: 10px; font-size: 15px; line-height: 1.7; color: #ddd; white-space: pre-wrap; display: none; }
+  .memo .tr.open { display: block; }
+  .tr-btn { background: none; border: none; color: #0a84ff; font-size: 15px; cursor: pointer; padding: 10px 0 0; min-height: 44px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="app-head"><h1>Voice Memos</h1></div>
+  <div class="app-body"><div id="list"><div class="loading">جارٍ التحميل…</div></div></div>
+</div>
+<script src="app-common.js"></script>
+<script>
+window.onStory = function () { renderList(); };
+window.onUpdate = function () { renderList(); };
+function renderList() {
+  var list = $('#list');
+  var audios = STORY.audios || [];
+  if (!audios.length) { list.innerHTML = '<div class="empty">لا توجد تسجيلات صوتية.<br>الأغاني غير محفوظة على هذا الهاتف.</div>'; return; }
+  list.innerHTML = audios.map(function (a) {
+    var clue = clueFor(a.id);
+    return '<div class="memo" data-audio="' + esc(a.id) + '">' +
+      '<h2>🎙️ ' + esc(a.title || '') + '</h2>' +
+      '<div class="meta">' + esc(a.from ? ('من: ' + (charById(a.from) ? charById(a.from).name : a.from) + ' · ') : '') +
+      (a.durationSec ? Math.floor(a.durationSec / 60) + ':' + String(a.durationSec % 60).padStart(2, '0') : '') + '</div>' +
+      '<audio controls preload="metadata" src="../story/assets/audio/' + esc(a.file) + '"></audio>' +
+      (a.transcript ? '<br><button class="tr-btn">عرض النص المكتوب</button><div class="tr">' + esc(a.transcript) + '</div>' : '') +
+      '<br>' + pinButtonHtml(clue) + '</div>';
+  }).join('') + '<div class="empty">لا توجد أغانٍ محفوظة على هذا الهاتف.</div>';
+  wirePin(list);
+  list.querySelectorAll('.memo').forEach(function (m) {
+    var audio = m.querySelector('audio');
+    if (audio) audio.addEventListener('play', function () { report('audio_played', m.getAttribute('data-audio')); });
+    var btn = m.querySelector('.tr-btn');
+    if (btn) btn.addEventListener('click', function () {
+      var tr = m.querySelector('.tr');
+      tr.classList.toggle('open');
+      btn.textContent = tr.classList.contains('open') ? 'إخفاء النص المكتوب' : 'عرض النص المكتوب';
+    });
+  });
+}
+ready('music');
+</script>
+</body>
+</html>
